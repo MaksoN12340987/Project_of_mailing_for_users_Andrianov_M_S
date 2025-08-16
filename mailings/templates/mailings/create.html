@@ -1,0 +1,51 @@
+{% extends 'mailings/base.html' %}
+
+{% block title %}
+  Рассылки
+{% endblock %}
+
+{% block page_title %}
+  <div class="row p-1">
+    <div class="col-6 ms-5">
+
+      <div class="container-fluid" style="height: 4rem;"></div>
+
+      <h1>УПРАВЛЯЙТЕ</h1>
+      <h1>РАССЫЛКАМИ КЛИЕНТАМ</h1>
+    </div>
+    
+    <div class="row">
+      <div class="col-9 text-end">
+        <h1 class="me-4">СО СКОРОСТЬЮ МАРСИАНСКОГО</h1>
+        <h1 class="me-4">ЭКСПРЕССА</h1>
+      </div>
+    </div>
+
+    <div class="container-fluid" style="height: 4rem;"></div>
+  </div>
+{% endblock %}
+
+
+{% block content %}
+  <h3 class="p-3">Создать рассылку:</h3>
+
+  <div class="card rounded-3 ms-2 me-2 p-5 text-start bg-dark text-white">
+    <form method="post" class="bg-dark text-white p-2" enctype="multipart/form-data">
+                          
+      {% csrf_token %}
+                          
+      {{ form.as_p }}
+                          
+      <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+  </div>
+  
+  <div class="container-fluid" style="height: 4rem;"></div>
+{% endblock %}
+
+
+{% block bottom %}
+  <div class="container">
+    
+  </div>
+{% endblock %}

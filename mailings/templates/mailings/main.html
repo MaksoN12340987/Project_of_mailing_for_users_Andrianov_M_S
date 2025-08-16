@@ -1,0 +1,48 @@
+{% extends 'mailings/base.html' %}
+
+{% block title %}
+  Рассылки
+{% endblock %}
+
+{% block page_title %}
+  <div class="row p-1">
+    <div class="col-6 ms-5">
+
+      <div class="container-fluid" style="height: 4rem;"></div>
+
+      <h1>УПРАВЛЯЙТЕ</h1>
+      <h1>РАССЫЛКАМИ КЛИЕНТАМ</h1>
+    </div>
+    
+    <div class="row">
+      <div class="col-9 text-end">
+        <h1 class="me-4">СО СКОРОСТЬЮ МАРСИАНСКОГО</h1>
+        <h1 class="me-4">ЭКСПРЕССА</h1>
+      </div>
+    </div>
+
+    <div class="container-fluid" style="height: 14rem;"></div>
+  </div>
+{% endblock %}
+
+
+{% block content %}
+  <h3 class="p-3">Ваши рассылки:</h3>
+  {% for newsletter in newsletters %}
+
+    <div class="d-inline-block">
+      <div>1</div>
+      <div>1</div>
+      <div>1</div>
+      <div>1</div>
+    </div>
+
+  {% endfor %}
+{% endblock %}
+
+
+{% block bottom %}
+  <div class="container">
+    
+  </div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+  Авторизация
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid-base text-start">
+
+    <div class="container-md vh-100 text-start text-title p-3">
+
+      <div class="container-fluid text-start" style="height: 3rem;"></div>
+
+      <div class="container-fluid text-gray-right p-4">
+        <h1>Список пользователей</h1>
+      </div>
+
+      <div class="row row-cols-2 ms-1 me-1">
+        {% for user in users %}
+      
+          <div class="col">
+
+            <div class="container bg-item text-white-card mb-3 p-1 rounded-4">
+                
+              <div class="d-flex align-items-center">
+                <img src="../../../media/{{ user.preview }}" alt="" width="34" height="34" class="d-inline-block mt-1 ms-1">
+                <div class="flex-grow-0"><h4 class="mt-2 ms-1">{{ user.first_name }}</h4></div>
+              </div>
+
+              <p class="ms-2">
+                {% if user.is_active %}
+                    <h6>Пользователь: Admin</h6>
+                  {% else %}
+                    <h6>Пользователь: Standard</h6>
+                  {% endif %}
+              </p>
+
+              <a href="{% url 'users:profile' user.pk %}" class="btn btn-outline-warning rounded-1 mb-2 ms-2">
+                Просмотреть
+              </a>
+            </div>    
+          
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div> 
+{% endblock %}
+
+
+{% block bottom %}
+  <div class="container text-center p-1">
+    
+    <div class="row p-1">
+      {% if user.is_authenticated %}
+        <div class="col">
+          <form method="post" action="{% url 'users:logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <div class="flex-grow-0 ms-2 mt-1">
+              <button type="submit" class="btn btn-success rounded-2">Выйти</button>
+            </div>
+          </form>
+        </div>
+        
+        <div class="col">
+          <a href="{% url 'users:list' %}" class="btn btn-success rounded-2 me-4">Все юзеры</a>
+        </div>
+      {% else %}
+        <div class="col">
+          <a href="{% url 'users:login' %}" class="btn btn-success rounded-2">Войти</a>
+        </div>
+        <div class="col">
+          <a href="{% url 'users:create' %}" class="btn btn-success rounded-2">Обновить</a>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+  Авторизация
+{% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid-base text-start">
+        
+      <div class="container-md vh-100 text-start text-title p-3">
+        
+        <div class="container-fluid text-start" style="height: 2rem;"></div>
+
+        <div class="container-fluid text-gray-right p-4">
+          <h1>Авторизация пользователей</h1>
+        </div>
+        
+        <h2>Вход</h2>
+        <form method="post" class="mb-5">
+          
+          {% csrf_token %}
+          {{ form.as_p }}
+          
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <button type="submit" class="btn btn-outline-success mt-3">Вход</button>
+          </div>
+          
+        </form>
+      </div>
+
+    </div> 
+{% endblock %}
+
+
+{% block bottom %}
+  <div class="container text-center p-1">
+    
+    <div class="row p-1 me-2 text-center">
+      {% if user.is_authenticated %}
+        
+      <div class="col">
+          <form method="post" action="{% url 'users:logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <div class="flex-grow-0 ms-2 mt-1">
+              <button type="submit" class="btn btn-success rounded-2">Выйти</button>
+            </div>
+          </form>
+        </div>
+        
+        {% if user.is_superuser %}
+          <div class="col">
+            <a href="{% url 'users:list' %}" class="btn btn-success rounded-2 me-4">Все юзеры</a>
+          </div>
+        {% endif %}
+
+      {% else %}
+        
+        <div class="col">
+          <a href="{% url 'users:login' %}" class="btn btn-success rounded-2 ms-2">Войти</a>
+        </div>
+        
+        <div class="col">
+          <a href="{% url 'users:create' %}" class="btn btn-success rounded-2 ms-1">Обновить</a>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+{% endblock %}

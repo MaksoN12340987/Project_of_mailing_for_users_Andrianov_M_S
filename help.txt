@@ -1,0 +1,36 @@
+django-admin startproject name
+
+
+python manage.py shell -i ipython
+
+product_5 = Product(name="Молоко свеже", description="", image="static/images/2748558.png", category=Category.objects.get(id=1), price=170)
+сategory_5 = Category(name="", description="")
+
+
+
+python -Xutf8 manage.py dumpdata users.BaseUser --output users/fixture/users.json --indent 4
+
+
+python manage.py loaddata blog/fixture/posts.json --format json
+python manage.py loaddata users/fixture/users.json --format json
+
+
+
+python manage.py makemigrations
+
+python manage.py migrate
+python manage.py migrate auth zero
+python manage.py migrate users zero
+python manage.py migrate blog zero
+python manage.py migrate catalog zero
+
+
+
+post_1 = Posts(title="РЕКС", content="Бренд регионального экспреса ЦППК", preview=Image.open("blog/media/default/_DSC1419.JPG" ), publication_flag=True, number_views=0)
+
+products = Product.objects.all()
+
+from users.models import BaseUser
+
+from django.contrib.auth.models import Permission
+view_post_permission = Permission.objects.get(codename="view_posts")

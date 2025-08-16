@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Авторизация{% endblock %}</title>
+    <link href="\static\css\bootstrap.css" rel="stylesheet">
+    <script defer src="\static\js\bootstrap.bundle.js"></script>
+  <body>
+
+    <div class="container-fluid-mailing vh-100 text-start">
+      <div class="container-md-page_title text-start">
+
+        {% block page_title %}{% endblock %}
+        <div class="container-fluid text-start" style="height: 6rem;"></div>
+
+      </div>
+
+      <div class="container-md-content text-white">
+        <div class="container-md-M text-start">
+
+          {% block content %}{% endblock %}
+
+        </div>
+      </div> 
+    
+    <div class="container-fluid-base text-start">
+      <div class="fixed-bottom">
+        <div class="bg-bottom">
+          {% block bottom %}{% endblock %}
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>

@@ -1,0 +1,67 @@
+[
+{
+    "model": "users.baseuser",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$RPm5g4Hdlw0aOARgfCKGPD$iYlBaUP/9PdEv0LWYfF/5E1+GAnM90QTWpmKGmEQ8IM=",
+        "last_login": "2025-08-04T21:07:39.944Z",
+        "is_superuser": true,
+        "username": "Admin",
+        "first_name": "Admin",
+        "last_name": "Admin",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-08-04T20:46:24.762Z",
+        "preview": "users/_DSC0110.JPG",
+        "email": "koroliishyt@gmail.com",
+        "phone_number": null,
+        "location": "Russia",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.baseuser",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$AgBELO7T1qrumn9yCh5GC1$uhKJDBJrSAKV8Qb22ZESzDEPdTiZlukXiHGrOrvllfM=",
+        "last_login": "2025-08-04T21:08:56.847Z",
+        "is_superuser": false,
+        "username": "Max",
+        "first_name": "Maksim",
+        "last_name": "Andreev",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-08-04T20:49:31Z",
+        "preview": "users/_DSC1134_075746_1_5reEXJT.JPG",
+        "email": "andrianov_maksim@outlook.com",
+        "phone_number": "9990001122",
+        "location": "Russia",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.baseuser",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$4Sq4zeS8xkMVrB2SS502uw$C6hqcQIj66ABckcMh5pq5egGDRgbvTOgDhI1WTwBCqI=",
+        "last_login": "2025-08-04T20:57:02.303Z",
+        "is_superuser": false,
+        "username": "Ordinary",
+        "first_name": "Standart",
+        "last_name": "User",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-08-04T20:52:03.170Z",
+        "preview": "users/vk1512904970822_Z6oJ9cL.jpg",
+        "email": "user@domen.com",
+        "phone_number": "9990001122",
+        "location": "Russia",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
