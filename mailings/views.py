@@ -36,6 +36,7 @@ class Create(CreateView):
     form_class = CreateNewsletter
     template_name = "mailings/create.html"
     context_object_name = "newsletter"
+    success_url = reverse_lazy("mailings:main")
 
 
 class Update(UpdateView):

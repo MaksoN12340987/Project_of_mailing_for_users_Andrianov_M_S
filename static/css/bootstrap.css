@@ -474,15 +474,10 @@
   text-align: right !important;
 }
 
-.bg-post-card {
-  --bs-rgb-post-card: 217, 155, 0;
+.bg-post-newsletter {
+  --bs-rgb-post-card: 255, 255, 255;
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-rgb-post-card), 0.8) !important;
-}
-
-.text-white-card {
-  --bs-text-opacity: 1;
-  color: rgb(39, 39, 39) !important;
+  background-color: rgba(var(--bs-rgb-post-card), 0.3) !important;
 }
 
 .card-text:last-child {
