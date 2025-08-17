@@ -7,24 +7,56 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Newsletter',
+            name="Newsletter",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('categories', models.CharField(choices=[('inform', 'information'), ('automatic', 'automatic'), ('special', 'special')], default='automatic', verbose_name='Категория')),
-                ('name_surname', models.CharField(max_length=200, verbose_name='Ф. И. О.')),
-                ('content', models.TextField(blank=True, null=True, verbose_name='Содержимое')),
-                ('attached_file', models.ImageField(blank=True, null=True, upload_to='newsletter/', verbose_name='Доп файлы')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "categories",
+                    models.CharField(
+                        choices=[
+                            ("inform", "information"),
+                            ("automatic", "automatic"),
+                            ("special", "special"),
+                        ],
+                        default="automatic",
+                        verbose_name="Категория",
+                    ),
+                ),
+                (
+                    "name_surname",
+                    models.CharField(max_length=200, verbose_name="Ф. И. О."),
+                ),
+                (
+                    "content",
+                    models.TextField(blank=True, null=True, verbose_name="Содержимое"),
+                ),
+                (
+                    "attached_file",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="newsletter/",
+                        verbose_name="Доп файлы",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Рассылка',
-                'verbose_name_plural': 'Рассылки',
-                'ordering': ['email'],
-                'permissions': [('mailing_manager', 'Mailing list manager')],
+                "verbose_name": "Рассылка",
+                "verbose_name_plural": "Рассылки",
+                "ordering": ["email"],
+                "permissions": [("mailing_manager", "Mailing list manager")],
             },
         ),
     ]

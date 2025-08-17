@@ -3,15 +3,16 @@ from django.db import models
 from users.models import MailingRecipient
 
 
-
 class Newsletter(models.Model):
     STATUS_CHOICES = [
         ("inform", "information"),
         ("automatic", "automatic"),
         ("special", "special"),
     ]
-    categories = models.CharField(choices=STATUS_CHOICES, default='automatic', verbose_name="Категория")
-    
+    categories = models.CharField(
+        choices=STATUS_CHOICES, default="automatic", verbose_name="Категория"
+    )
+
     email = models.ForeignKey(
         MailingRecipient,
         on_delete=models.CASCADE,
@@ -23,9 +24,9 @@ class Newsletter(models.Model):
     attached_file = models.ImageField(
         upload_to="newsletter/", verbose_name="Доп файлы", blank=True, null=True
     )
-    
+
     def __str__(self):
-        return f'{self.email} {self.name_surname}'
+        return f"{self.email} {self.name_surname}"
 
     class Meta:
         verbose_name = "Рассылка"

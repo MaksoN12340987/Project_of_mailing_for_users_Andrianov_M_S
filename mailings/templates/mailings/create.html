@@ -29,16 +29,21 @@
 {% block content %}
   <h3 class="p-3">Создать рассылку:</h3>
 
-  <div class="card rounded-3 ms-2 me-2 p-5 text-start bg-dark text-white">
-    <form method="post" class="bg-dark text-white p-2" enctype="multipart/form-data">
-                          
-      {% csrf_token %}
-                          
-      {{ form.as_p }}
-                          
-      <button type="submit" class="btn btn-primary">Отправить</button>
-    </form>
+  <div class="row">
+    <div class="col-6">
+      <div class="card rounded-3 text-start  text-white">
+        <form method="post" class="p-1" enctype="multipart/form-data">
+                                
+          {% csrf_token %}
+                                
+          {{ form.as_p }}
+                                
+          <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+      </div>
+    </div>
   </div>
+  
   
   <div class="container-fluid" style="height: 4rem;"></div>
 {% endblock %}

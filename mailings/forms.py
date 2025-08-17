@@ -19,20 +19,25 @@ class CreateNewsletter(forms.ModelForm):
 
         self.fields["email"].widget.attrs.update(
             {
-                "class": "contact-form",
-                "placeholder": "Введите",
+                "class": "form-select rounded-2 mb-2",
             }
         )
         self.fields["name_surname"].widget.attrs.update(
             {
-                "class": "contact-form",
-                "placeholder": "Введите",
+                "class": "form-control-M rounded-2 mb-2",
+                "placeholder": "Введите имя и фамилию",
             }
         )
-        self.fields["content"].widget.attrs.update({"class": "contact-form"})
+        self.fields["content"].widget.attrs.update(
+            {
+                "class": "form-control-M rounded-2 mb-2",
+                "placeholder": "Содержимое письма",
+            }
+        )
         self.fields["categories"].widget.attrs.update({"class": "form-select"})
-        self.fields["attached_file"].widget.attrs.update({"class": "img"})
-
+        self.fields["attached_file"].widget.attrs.update(
+            {"class": "form-control-M rounded-2 mb-2"}
+        )
 
 
 class UpdateNewsletter(forms.ModelForm):
