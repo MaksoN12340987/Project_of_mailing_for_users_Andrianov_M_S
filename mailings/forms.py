@@ -36,7 +36,7 @@ class CreateNewsletter(forms.ModelForm):
         )
         self.fields["categories"].widget.attrs.update({"class": "form-select"})
         self.fields["attached_file"].widget.attrs.update(
-            {"class": "form-control-M rounded-2 mb-2"}
+            {"class": "btn rounded-2 mb-2"}
         )
 
 
