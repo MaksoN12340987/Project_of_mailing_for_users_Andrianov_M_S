@@ -25,7 +25,9 @@ class MailingRecipient(AbstractUser):
     )
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
-    location = models.CharField(max_length=50, verbose_name="Страна проживания", default="Russia")
+    location = models.CharField(
+        max_length=50, verbose_name="Страна проживания", default="Russia"
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = [

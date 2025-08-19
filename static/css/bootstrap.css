@@ -410,54 +410,16 @@
 }
 
 
-.container-sm-page_title {
-  --bs-rgb-page-title: 217, 155, 0;
-  background-color: rgba(var(--bs-rgb-page-title), 1) !important;
-  --bs-gutter-x: 1.5rem;
-  --bs-gutter-y: 0;
-  width: 45%;
-  padding-right: calc(var(--bs-gutter-x) * 0.5);
-  padding-left: calc(var(--bs-gutter-x) * 0.5);
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.bg-primary-top-line {
-  --bg-img-top-line: url("../images/dark_blue_background.jpg");
-  --bs-bg-opacity: 1;
-  background-image: var(--bg-img-top-line);
-}
-
-.bg-title {
-  --bs-rgb-title: 0, 59, 115;
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-rgb-title), 1) !important;
-}
-
-.text-title {
-  --bs-text-opacity: 1;
-  color: rgb(221, 221, 221) !important;
-}
-
-.bg-post {
-  --bg-img-top-line: url("../images/dark_blue_background.jpg");
-  --bs-bg-opacity: 1;
-  background-image: var(--bg-img-top-line);
-}
-
-
-
-
-.bg-item {
-  --bs-rgb-title: 160, 160, 160;
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-rgb-title), 0.84) !important;
-}
-
 .text-white-card {
   text-align: left !important;
   --bs-text-opacity: 1;
   color: rgb(255, 255, 255) !important;
+}
+
+.bg-card {
+  --bs-rgb-post-card: 255, 255, 255;
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-rgb-post-card), 0.35) !important;
 }
 
 
@@ -867,7 +829,7 @@
 
 
 .form-control-M {
-  --body-color: #ffffff4b;
+  --body-color: #000000;
   --body-bg: #ffffff77;
   --border-width: 1px;
   --border-color: #000000;
@@ -875,7 +837,7 @@
   /* text */
   --secondary-color: #00000069; 
   --secondary-bg: #0000002d;
-  --tertiary-bg: #ffffff77;
+  --tertiary-bg: #aaaaaa77;
 
   display: block;
   width: 100%;
@@ -973,6 +935,58 @@
 }
 .form-control-M:hover:not(:disabled):not([readonly])::file-selector-button {
   background-color: var(--secondary-bg);
+}
+
+.form-select-M {
+  --body-color-select: #000000;
+  --body-bg-form-select: #ffffff77;
+  --form-select-bg-img: #00ff88;
+  --form-select-bg-icon: #00ff88;
+  --border-width-select: 1px;
+  --border-color-select: #000000;
+  --border-radius-select: #000000;
+  --emphasis-color: #ffffff77;
+
+  --form-select-bg-img: url("../images/kanarail5.jpg");
+  display: block;
+  width: 100%;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--body-color-select);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--body-bg-form-select);
+  background-image: var(--form-select-bg-img), var(--form-select-bg-icon, none);
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  border: var(--border-width-select) solid var(--border-color-select);
+  border-radius: var(--border-radius-select);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .form-select-M {
+    transition: none;
+  }
+}
+.form-select-M:focus {
+  border-color: var(--emphasis-color);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.25);
+}
+.form-select-M[multiple], .form-select-M[size]:not([size="1"]) {
+  padding-right: 0.75rem;
+  background-image: none;
+}
+.form-select-M:disabled {
+  background-color: var(--emphasis-color);
+}
+.form-select-M:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 var(--body-color-select);
 }
 
 
@@ -9737,7 +9751,7 @@ textarea.form-control-lg {
 }
 
 .bg-body-tertiary {
-  --bs-bg-opacity: 1;
+  --bs-bg-opacity: 0.45;
   background-color: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity)) !important;
 }
 

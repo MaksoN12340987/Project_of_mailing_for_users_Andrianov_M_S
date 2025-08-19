@@ -42,11 +42,11 @@ class Create(CreateView):
 class Update(UpdateView):
     model = Newsletter
     form_class = UpdateNewsletter
-    template_name = "mailings/main.html"
+    template_name = "mailings/create.html"
     context_object_name = "newsletter"
 
 
 class Detail(DetailView):
     model = Newsletter
-    template_name = "mailings/main.html"
+    template_name = "mailings/detail.html"
     context_object_name = "newsletter"
