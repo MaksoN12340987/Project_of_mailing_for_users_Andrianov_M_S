@@ -5,13 +5,16 @@ from users.models import MailingRecipient
 
 class Newsletter(models.Model):
     STATUS_CHOICES = [
-        ("inform", "information"),
-        ("automatic", "automatic"),
-        ("special", "special"),
+        ("Created", "event created"),
+        ("Started", "event started"),
+        ("Completed", "event completed"),
     ]
-    categories = models.CharField(
+    status = models.CharField(
         choices=STATUS_CHOICES, default="automatic", verbose_name="Категория"
     )
+    
+    first_sending = models.DateTimeField(auto_now_add=True)
+    сompletion_time = models.DateTimeField(default=None, null=True)
 
     email = models.ForeignKey(
         MailingRecipient,
@@ -19,9 +22,9 @@ class Newsletter(models.Model):
         related_name="categories",
         verbose_name="Категория",
     )
-    name_surname = models.CharField(max_length=200, verbose_name="Ф. И. О.")
+    recipients = models.CharField(max_length=200, verbose_name="Ф. И. О.")
     title = models.CharField(max_length=200, verbose_name="Тема", null=True)
-    content = models.TextField(null=True, blank=True, verbose_name="Содержимое")
+    message = models.TextField(null=True, blank=True, verbose_name="Содержимое")
     attached_file = models.ImageField(
         upload_to="newsletter/", verbose_name="Доп файлы", blank=True, null=True
     )
