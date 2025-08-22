@@ -10,17 +10,16 @@ class Newsletter(models.Model):
         ("Completed", "event completed"),
     ]
     status = models.CharField(
-        choices=STATUS_CHOICES, default="automatic", verbose_name="Категория"
+        choices=STATUS_CHOICES, default="Created", verbose_name="Категория"
     )
     
     first_sending = models.DateTimeField(auto_now_add=True)
     сompletion_time = models.DateTimeField(default=None, null=True)
 
-    email = models.ForeignKey(
+    email = models.ManyToManyField(
         MailingRecipient,
-        on_delete=models.CASCADE,
-        related_name="categories",
-        verbose_name="Категория",
+        related_name="Recipient",
+        verbose_name="Получатели",
     )
     recipients = models.CharField(max_length=200, verbose_name="Ф. И. О.")
     title = models.CharField(max_length=200, verbose_name="Тема", null=True)
@@ -30,7 +29,7 @@ class Newsletter(models.Model):
     )
 
     def __str__(self):
-        return f"{self.email} {self.name_surname}"
+        return f"{self.email} {self.status}"
 
     class Meta:
         verbose_name = "Рассылка"

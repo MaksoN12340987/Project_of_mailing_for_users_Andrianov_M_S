@@ -16,9 +16,8 @@ class UserCreateForm(UserCreationForm):
             "first_name",
             "last_name",
             "email",
-            "location",
-            "phone_number",
-            "preview",
+            "message",
+            "photo",
             "password1",
             "password2",
         ]
