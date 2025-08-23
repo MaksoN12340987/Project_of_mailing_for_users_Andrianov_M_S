@@ -8,7 +8,7 @@ class CreateNewsletter(forms.ModelForm):
         model = Newsletter
         fields = [
             "email",
-            "name_surname",
+            "status",
             "content",
             "categories",
             "attached_file",
@@ -22,9 +22,9 @@ class CreateNewsletter(forms.ModelForm):
                 "class": "form-select-M",
             }
         )
-        self.fields["name_surname"].widget.attrs.update(
+        self.fields["status"].widget.attrs.update(
             {
-                "class": "form-control-M",
+                "class": "form-select-M",
                 "placeholder": "Введите Фамилию и Имя",
             }
         )
