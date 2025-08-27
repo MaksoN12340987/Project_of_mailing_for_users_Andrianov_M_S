@@ -3,17 +3,23 @@ from django.db import models
 from users.models import MailingRecipient
 
 
+class Message(models.Model):
+    subject = models.CharField(max_length=200, verbose_name="Тема", unique=True)
+    content = models.TextField(max_length=200, verbose_name="Содержание")
+    attached_file = models.ImageField(
+        upload_to="newsletter/",
+        verbose_name="Прикрепленные файлы",
+        blank=True,
+        null=True,
+    )
 
-# class Message(models.Model):
-    
-#     def __str__(self):
-#         return f"{self.email} {self.status}"
+    def __str__(self):
+        return f"{self.subject}"
 
-#     class Meta:
-#         verbose_name = "Сообщение"
-#         verbose_name_plural = "Сообщения"
-#         ordering = ["email"]
-#         permissions = [("mailing_manager", "Mailing list manager")]
+    class Meta:
+        verbose_name = "Сообщение"
+        verbose_name_plural = "Сообщения"
+        ordering = ["subject"]
 
 
 class Newsletter(models.Model):
@@ -25,24 +31,22 @@ class Newsletter(models.Model):
     status = models.CharField(
         choices=STATUS_CHOICES, default="Created", verbose_name="Категория"
     )
-    
-    first_sending = models.DateTimeField(auto_now_add=True)
-    сompletion_time = models.DateTimeField(default=None, null=True)
 
-    email = models.ManyToManyField(
-        MailingRecipient,
-        related_name="Recipient",
-        verbose_name="Получатели",
+    first_sending = models.DateTimeField(
+        auto_now_add=True, verbose_name="Дата и время первой отправки"
     )
-    # recipients = models.ForeignKey(verbose_name="Получатели")
-    title = models.CharField(max_length=200, verbose_name="Тема", null=True)
-    message = models.TextField(null=True, blank=True, verbose_name="Содержимое")
-    attached_file = models.ImageField(
-        upload_to="newsletter/", verbose_name="Доп файлы", blank=True, null=True
+    сompletion_time = models.DateTimeField(
+        default=None, null=True, verbose_name="Дата и время окончания отправки"
+    )
+    message = models.ForeignKey(
+        Message, on_delete=models.CASCADE, verbose_name="Содержание рассылки"
+    )
+    recipients = models.ManyToManyField(
+        MailingRecipient, verbose_name="Получатели рассылки"
     )
 
     def __str__(self):
-        return f"{self.email} {self.status}"
+        return f"{self.recipients} {self.status}"
 
     class Meta:
         verbose_name = "Рассылка"

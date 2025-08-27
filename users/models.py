@@ -23,8 +23,10 @@ class MailingRecipient(AbstractUser):
         verbose_name="Фотография",
         null=True,
     )
-    email = models.EmailField(unique=True)
-    message = models.CharField(max_length=15, blank=True, null=True)
+    email = models.EmailField(unique=True, verbose_name="Почта клиента")
+    comment = models.CharField(
+        max_length=15, blank=True, null=True, verbose_name="Коммантарий"
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = [
