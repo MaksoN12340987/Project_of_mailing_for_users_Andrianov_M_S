@@ -36,7 +36,7 @@ class Newsletter(models.Model):
         auto_now_add=True, verbose_name="Дата и время первой отправки"
     )
     сompletion_time = models.DateTimeField(
-        default=None, null=True, verbose_name="Дата и время окончания отправки"
+        default=None, null=True, verbose_name="Дата и время окончания отправки", blank=True, auto_created=True
     )
     message = models.ForeignKey(
         Message, on_delete=models.CASCADE, verbose_name="Содержание рассылки"
@@ -51,5 +51,5 @@ class Newsletter(models.Model):
     class Meta:
         verbose_name = "Рассылка"
         verbose_name_plural = "Рассылки"
-        ordering = ["email"]
+        ordering = ["status"]
         permissions = [("mailing_manager", "Mailing list manager")]

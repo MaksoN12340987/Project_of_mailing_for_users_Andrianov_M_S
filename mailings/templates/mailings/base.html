@@ -25,20 +25,20 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                    <a class="nav-link active me-3" aria-current="page" href="{% url 'mailings:main' %}">Главная</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Ссылка</a>
+                    <a class="nav-link me-3" href="{% url 'mailings:main' %}">Ссылка</a>
                   </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Выпадающий список
+                      Создать
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Действие</a></li>
-                      <li><a class="dropdown-item" href="#">Другое действие</a></li>
+                      <li><a class="dropdown-item" href="{% url 'mailings:create_message' %}">Сообщение рассылки</a></li>
+                      <li><a class="dropdown-item" href="{% url 'mailings:create' %}">Рассылку</a></li>
                       <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+                      <li><a class="dropdown-item" href="{% url 'users:create' %}">Получателя рассылки</a></li>
                     </ul>
                   </li>
                 </ul>

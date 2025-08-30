@@ -11,8 +11,8 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import CreateNewsletter, UpdateNewsletter
-from .models import Newsletter
+from .forms import CreateNewsletter, UpdateNewsletter, CreateMessage
+from .models import Newsletter, Message
 
 logger_views = logging.getLogger(__name__)
 file_handler = logging.FileHandler(f"log/{__name__}.log", mode="a", encoding="UTF8")
@@ -50,3 +50,24 @@ class Detail(DetailView):
     model = Newsletter
     template_name = "mailings/detail.html"
     context_object_name = "newsletter"
+
+
+class MessageCreate(CreateView):
+    model = Message
+    form_class = CreateMessage
+    template_name = "mailings/create.html"
+    context_object_name = "message"
+    success_url = reverse_lazy("mailings:main")
+
+
+class MessageUpdate(UpdateView):
+    model = Message
+    form_class = CreateMessage
+    template_name = "mailings/create.html"
+    context_object_name = "message"
+
+
+class MessageDetail(DetailView):
+    model = Message
+    template_name = "mailings/detail.html"
+    context_object_name = "message"

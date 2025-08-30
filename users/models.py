@@ -24,6 +24,7 @@ class MailingRecipient(AbstractUser):
         null=True,
     )
     email = models.EmailField(unique=True, verbose_name="Почта клиента")
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
     comment = models.CharField(
         max_length=15, blank=True, null=True, verbose_name="Коммантарий"
     )

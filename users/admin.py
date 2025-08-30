@@ -14,11 +14,10 @@ class UsersAdmin(admin.ModelAdmin):
         "last_name",
         "is_staff",
         "is_active",
-        "preview",
+        "photo",
         "email",
+        "comment",
         "phone_number",
-        "id",
-        "location",
         "date_joined",
         "last_login",
     )

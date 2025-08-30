@@ -3,7 +3,6 @@ from django import forms
 from .models import Newsletter, Message
 
 
-
 class CreateMessage(forms.ModelForm):
     class Meta:
         model = Message
@@ -12,27 +11,28 @@ class CreateMessage(forms.ModelForm):
             "content",
             "attached_file",
         ]
-        
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields["subject"].widget.attrs.update(
             {
                 "class": "form-control-M",
+                "placeholder": "Тема сообщения",
             }
         )
         self.fields["content"].widget.attrs.update(
             {
                 "class": "form-control-M",
-                "placeholder": "Введите ",
+                "placeholder": "Содержание сообщения ",
             }
         )
         self.fields["attached_file"].widget.attrs.update(
             {
                 "class": "form-control-M",
+                "placeholder": "Дополнительны файлы ",
             }
         )
-
 
 
 class CreateNewsletter(forms.ModelForm):
@@ -42,7 +42,6 @@ class CreateNewsletter(forms.ModelForm):
             "status",
             "message",
             "recipients",
-            "first_sending",
             "сompletion_time",
         ]
 
@@ -60,17 +59,12 @@ class CreateNewsletter(forms.ModelForm):
                 "placeholder": "Введите ",
             }
         )
-        self.fields["first_sending"].widget.attrs.update(
-            {
-                "class": "form-control-M",
-            }
-        )
+        self.fields["recipients"].widget.attrs.update({"class": "form-select-M"})
         self.fields["сompletion_time"].widget.attrs.update(
             {
-                "class": "form-control-M",
+                "class": "form-select-M",
             }
         )
-        self.fields["recipients"].widget.attrs.update({"class": "form-select-M"})
 
 
 class UpdateNewsletter(forms.ModelForm):
@@ -80,7 +74,6 @@ class UpdateNewsletter(forms.ModelForm):
             "status",
             "message",
             "recipients",
-            "first_sending",
             "сompletion_time",
         ]
 
@@ -96,11 +89,6 @@ class UpdateNewsletter(forms.ModelForm):
             {
                 "class": "form-control-M",
                 "placeholder": "Введите ",
-            }
-        )
-        self.fields["first_sending"].widget.attrs.update(
-            {
-                "class": "form-control-M",
             }
         )
         self.fields["сompletion_time"].widget.attrs.update(

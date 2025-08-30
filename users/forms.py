@@ -16,8 +16,9 @@ class UserCreateForm(UserCreationForm):
             "first_name",
             "last_name",
             "email",
-            "message",
             "photo",
+            "comment",
+            "phone_number",
             "password1",
             "password2",
         ]
@@ -46,21 +47,21 @@ class UserCreateForm(UserCreationForm):
                 "placeholder": "Введите вашу почту",
             }
         )
-        self.fields["location"].widget.attrs.update(
+        self.fields["comment"].widget.attrs.update(
             {
                 "class": "form-control rounded-2 mb-2",
                 "placeholder": "Введите страну, где вы находитесь",
+            }
+        )
+        self.fields["photo"].widget.attrs.update(
+            {
+                "class": "input-group rounded-2 mb-2",
             }
         )
         self.fields["phone_number"].widget.attrs.update(
             {
                 "class": "form-control rounded-2 mb-4",
                 "placeholder": "Введите номер телефона",
-            }
-        )
-        self.fields["preview"].widget.attrs.update(
-            {
-                "class": "input-group rounded-2 mb-2",
             }
         )
         self.fields["password1"].widget.attrs.update(
@@ -99,9 +100,9 @@ class RedactProfileForm(UserChangeForm):
             "first_name",
             "last_name",
             "email",
-            "location",
+            "photo",
+            "comment",
             "phone_number",
-            "preview",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -128,7 +129,7 @@ class RedactProfileForm(UserChangeForm):
                 "placeholder": "Введите вашу почту",
             }
         )
-        self.fields["location"].widget.attrs.update(
+        self.fields["comment"].widget.attrs.update(
             {
                 "class": "form-control rounded-2 mb-2",
                 "placeholder": "Введите страну, где вы находитесь",
@@ -140,7 +141,7 @@ class RedactProfileForm(UserChangeForm):
                 "placeholder": "Введите номер телефона",
             }
         )
-        self.fields["preview"].widget.attrs.update(
+        self.fields["photo"].widget.attrs.update(
             {
                 "class": "input-group rounded-2 mb-2",
             }
