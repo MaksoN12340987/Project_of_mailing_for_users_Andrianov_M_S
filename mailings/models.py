@@ -14,7 +14,7 @@ class Message(models.Model):
     )
 
     def __str__(self):
-        return f"{self.subject}"
+        return self.subject
 
     class Meta:
         verbose_name = "Сообщение"
@@ -46,7 +46,7 @@ class Newsletter(models.Model):
     )
 
     def __str__(self):
-        return f"{self.recipients} {self.status}"
+        return f"{self.message}"
 
     class Meta:
         verbose_name = "Рассылка"

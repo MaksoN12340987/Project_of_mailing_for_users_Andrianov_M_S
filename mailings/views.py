@@ -2,6 +2,7 @@ import logging
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
+from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -29,6 +30,15 @@ class MainView(ListView):
     model = Newsletter
     template_name = "mailings/main.html"
     context_object_name = "newsletters"
+    
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        
+        # for i, value in enumerate(context_data["newsletters"]):
+        #     logger_views.info(value.recipients.all())
+        #     context_data[value.pk] = value.recipients.all()
+        # logger_views.info(context_data)
+        return context_data
 
 
 class Create(CreateView):

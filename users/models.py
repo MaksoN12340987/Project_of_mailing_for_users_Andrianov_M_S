@@ -35,7 +35,7 @@ class MailingRecipient(AbstractUser):
     ]
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return self.email
 
     class Meta:
         verbose_name = "Получатель"

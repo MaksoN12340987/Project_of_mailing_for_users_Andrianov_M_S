@@ -28,22 +28,22 @@
 
 {% block content %}
   <h3 class="p-3">Ваши рассылки:</h3>
-  <div class="row ms-2">
-
-          <div class="col-4">
-            <p>Ф И О</p>
-          </div>
+  <div class="row ms-2 me-2">
           
           <div class="col-3">
             <p>Тема</p>
           </div>
+
+          <div class="col-4">
+            <p>Содержание</p>
+          </div>
           
           <div class="col-3">
-            <p>Имейл получателя</p>
+            <p>Получатели</p>
           </div>
 
           <div class="col-1">
-            <p>Тип</p>
+            <p>Статус</p>
           </div>
         
         </div>
@@ -53,25 +53,27 @@
 
       <div class="container mb-3 bg-post-newsletter rounded-3">
         <div class="row mt-2">
-
-          <div class="col-4 mt-2">
-            {{ newsletter.name_surname }}
-          </div>
           
-          <div class="col-3 mt-2">
-            {% if newsletter.title %}
-              {{ newsletter.title }}
+          <div class="col-3 p-3">
+            {% if newsletter.message %}
+              {{ newsletter.message }}
             {% else %}
               <p>Без темы</p>
             {% endif %}
           </div>
+
+          <div class="col-4 p-3">
+            {{ newsletter.message.content }}
+          </div>
           
-          <div class="col-3 mt-2">
-            {{ newsletter.email }}
+          <div class="col-3 p-3">
+            {% for users_all in newsletter.recipients.all %}
+              {{ users_all }}
+            {% endfor %}
           </div>
 
-          <div class="col-1 mt-2">
-            {{ newsletter.categories }}
+          <div class="col-1 p-3">
+            {{ newsletter.status }}
           </div>
         
         </div>
