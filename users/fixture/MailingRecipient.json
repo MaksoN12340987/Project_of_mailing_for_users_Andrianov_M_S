@@ -1,0 +1,65 @@
+[
+{
+    "model": "users.mailingrecipient",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$xa09uP7O2VFuqN8j4WiT9e$s3ZIMScYSNbOJccz85ch84mxQYdt4U/4+a9UwqKfLII=",
+        "last_login": "2025-08-30T20:27:52.241Z",
+        "is_superuser": false,
+        "username": "Max",
+        "first_name": "Maksim",
+        "last_name": "Andreev",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-08-30T20:27:37.659Z",
+        "photo": "users/20250711_080236.jpg",
+        "email": "koroliishyt@gmail.com",
+        "phone_number": "9990001122",
+        "comment": "Russia",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.mailingrecipient",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$pBpYj22DzGZbAPU9QUgqhf$thi5osKa1z6Ao1+zOl3O75GkmY5znxu1tZUx7/fLvf8=",
+        "last_login": "2025-08-30T22:32:56.635Z",
+        "is_superuser": false,
+        "username": "User_1",
+        "first_name": "User_lite",
+        "last_name": "Lite",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-08-30T22:32:26.439Z",
+        "photo": "users/20250716_163621.jpg",
+        "email": "user@domen.com",
+        "phone_number": "1111111111",
+        "comment": "Russia",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.mailingrecipient",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$s9mw7JNUDNOenaaIRdBsch$34o7N9wB3mGRmoQQJFQ+VZt7PM4/I7gCE9jrDrOI0gs=",
+        "last_login": "2025-08-31T15:36:41.624Z",
+        "is_superuser": false,
+        "username": "User_2",
+        "first_name": "User_2",
+        "last_name": "Lite",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-08-31T15:28:57.635Z",
+        "photo": "users/photo_2025-08-31_18-21-51.jpg",
+        "email": "andrianov_maksim@outlook.com",
+        "phone_number": "0009991122",
+        "comment": "Ingland",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

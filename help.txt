@@ -8,7 +8,11 @@ product_5 = Product(name="Молоко свеже", description="", image="stati
 
 
 
-python -Xutf8 manage.py dumpdata users.BaseUser --output users/fixture/users.json --indent 4
+python -Xutf8 manage.py dumpdata mailings.Message --output mailings/fixture/Message.json --indent 4
+python -Xutf8 manage.py dumpdata mailings.Newsletter --output mailings/fixture/Newsletter.json --indent 4
+python -Xutf8 manage.py dumpdata mailings.AttemptSend --output mailings/fixture/AttemptSend.json --indent 4
+
+python -Xutf8 manage.py dumpdata users.MailingRecipient --output users/fixture/MailingRecipient.json --indent 4
 
 
 python manage.py loaddata blog/fixture/posts.json --format json
