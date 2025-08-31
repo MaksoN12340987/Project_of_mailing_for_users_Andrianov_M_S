@@ -1,6 +1,7 @@
+from typing import Any
 from django import forms
 
-from .models import Newsletter, Message
+from .models import Newsletter, Message, AttemptSend
 
 
 class CreateMessage(forms.ModelForm):
@@ -39,7 +40,6 @@ class CreateNewsletter(forms.ModelForm):
     class Meta:
         model = Newsletter
         fields = [
-            "status",
             "message",
             "recipients",
             "сompletion_time",
@@ -48,11 +48,6 @@ class CreateNewsletter(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["status"].widget.attrs.update(
-            {
-                "class": "form-select-M",
-            }
-        )
         self.fields["message"].widget.attrs.update(
             {
                 "class": "form-control-M",
@@ -71,7 +66,6 @@ class UpdateNewsletter(forms.ModelForm):
     class Meta:
         model = Newsletter
         fields = [
-            "status",
             "message",
             "recipients",
             "сompletion_time",
@@ -80,11 +74,6 @@ class UpdateNewsletter(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["status"].widget.attrs.update(
-            {
-                "class": "form-select-M",
-            }
-        )
         self.fields["message"].widget.attrs.update(
             {
                 "class": "form-control-M",
@@ -97,3 +86,28 @@ class UpdateNewsletter(forms.ModelForm):
             }
         )
         self.fields["recipients"].widget.attrs.update({"class": "form-select-M"})
+
+
+class Attempt_send_form(forms.ModelForm):
+    class Meta:
+        model = AttemptSend
+        fields = [
+            "status",
+            "news_letter",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["status"].widget.attrs.update(
+            {
+                "class": "form-select-M",
+                "placeholder": "Тема сообщения",
+            }
+        )
+        self.fields["news_letter"].widget.attrs.update(
+            {
+                "class": "form-select-M",
+                "placeholder": "Содержание сообщения ",
+            }
+        )

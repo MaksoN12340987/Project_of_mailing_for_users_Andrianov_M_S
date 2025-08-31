@@ -3,6 +3,8 @@ import logging
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
 from django.db.models.query import QuerySet
+from django.forms import BaseModelForm
+from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -12,8 +14,10 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import CreateNewsletter, UpdateNewsletter, CreateMessage
-from .models import Newsletter, Message
+from .forms import CreateNewsletter, UpdateNewsletter, CreateMessage, Attempt_send_form
+from .models import Newsletter, Message, AttemptSend
+
+from .services import SendingMessagesEmail
 
 logger_views = logging.getLogger(__name__)
 file_handler = logging.FileHandler(f"log/{__name__}.log", mode="a", encoding="UTF8")
@@ -30,15 +34,6 @@ class MainView(ListView):
     model = Newsletter
     template_name = "mailings/main.html"
     context_object_name = "newsletters"
-    
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        
-        # for i, value in enumerate(context_data["newsletters"]):
-        #     logger_views.info(value.recipients.all())
-        #     context_data[value.pk] = value.recipients.all()
-        # logger_views.info(context_data)
-        return context_data
 
 
 class Create(CreateView):
@@ -81,3 +76,52 @@ class MessageDetail(DetailView):
     model = Message
     template_name = "mailings/detail.html"
     context_object_name = "message"
+
+
+class AttemptSendCreate(CreateView):
+    model = AttemptSend
+    form_class = Attempt_send_form
+    template_name = "mailings/create.html"
+    context_object_name = "attemptsend"
+    success_url = reverse_lazy("mailings:main")
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        attemptsend = form.save(commit=False)
+        
+        sending_messages = SendingMessagesEmail(attemptsend.news_letter)
+        result = sending_messages.attempt_send()
+        logger_views.info(result)
+        newsletter_pk = attemptsend.news_letter.pk
+        
+        newsletter = Newsletter.objects.filter(pk=newsletter_pk)[0]
+        newsletter.status = "Started"
+        newsletter.save()
+        
+        if not result:
+            attemptsend.status = "Successful"
+        else:
+            attemptsend.status = "Not_successful"
+            attemptsend.news_letter.status = "Started"
+        
+        attemptsend.save()
+        
+        return super().form_valid(form)
+
+
+class AttemptSendUpdate(UpdateView):
+    model = AttemptSend
+    form_class = Attempt_send_form
+    template_name = "mailings/create.html"
+    context_object_name = "attemptsend"
+
+
+class AttemptSendDetail(DetailView):
+    model = AttemptSend
+    template_name = "mailings/detail.html"
+    context_object_name = "attemptsend"
+
+
+class AttemptSendView(ListView):
+    model = Newsletter
+    template_name = "mailings/attemptsend_list.html"
+    context_object_name = "attemptsend"

@@ -36,7 +36,11 @@ class Newsletter(models.Model):
         auto_now_add=True, verbose_name="Дата и время первой отправки"
     )
     сompletion_time = models.DateTimeField(
-        default=None, null=True, verbose_name="Дата и время окончания отправки", blank=True, auto_created=True
+        default=None,
+        null=True,
+        verbose_name="Дата и время окончания отправки",
+        blank=True,
+        auto_created=True,
     )
     message = models.ForeignKey(
         Message, on_delete=models.CASCADE, verbose_name="Содержание рассылки"
@@ -53,3 +57,31 @@ class Newsletter(models.Model):
         verbose_name_plural = "Рассылки"
         ordering = ["status"]
         permissions = [("mailing_manager", "Mailing list manager")]
+
+
+class AttemptSend(models.Model):
+    STATUS = [
+        ("Not_start", "Did not start"),
+        ("Not_successful", "event started"),
+        ("Successful", "event completed"),
+    ]
+    status = models.CharField(
+        choices=STATUS, default="Not_start", verbose_name="Статус попытки"
+    )
+    time_attempt = models.DateTimeField(
+        auto_now=True, verbose_name="Дата и время попытки"
+    )
+    mail_server_response = models.CharField(
+        default="Нет ответа", verbose_name="Ответ почтового сервера", null=True
+    )
+    news_letter = models.ForeignKey(
+        Newsletter, on_delete=models.CASCADE, verbose_name="Содержание рассылки"
+    )
+
+    def __str__(self):
+        return self.status
+
+    class Meta:
+        verbose_name = "Попытка рассылки"
+        verbose_name_plural = "Попыток рассылки"
+        ordering = ["status"]

@@ -24,6 +24,8 @@ python manage.py migrate users zero
 python manage.py migrate blog zero
 python manage.py migrate catalog zero
 
+python manage.py mailing_clean
+
 
 
 post_1 = Posts(title="РЕКС", content="Бренд регионального экспреса ЦППК", preview=Image.open("blog/media/default/_DSC1419.JPG" ), publication_flag=True, number_views=0)
@@ -34,3 +36,8 @@ from users.models import BaseUser
 
 from django.contrib.auth.models import Permission
 view_post_permission = Permission.objects.get(codename="view_posts")
+
+
+
+"Не все сообщения успешно отправились("
+"Все сообщения успешно отправились"
