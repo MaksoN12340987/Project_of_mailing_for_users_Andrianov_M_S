@@ -30,31 +30,19 @@ logger_views.addHandler(file_handler)
 logger_views.setLevel(logging.INFO)
 
 
+# Main
 class MainView(ListView):
     model = Newsletter
     template_name = "mailings/main.html"
     context_object_name = "newsletters"
 
 
-class Create(CreateView):
-    model = Newsletter
-    form_class = CreateNewsletter
-    template_name = "mailings/create.html"
-    context_object_name = "newsletter"
-    success_url = reverse_lazy("mailings:main")
-
-
-class Update(UpdateView):
-    model = Newsletter
-    form_class = UpdateNewsletter
-    template_name = "mailings/create.html"
-    context_object_name = "newsletter"
-
-
-class Detail(DetailView):
-    model = Newsletter
-    template_name = "mailings/detail.html"
-    context_object_name = "newsletter"
+# New class
+# Message
+class MessagesView(ListView):
+    model = Message
+    template_name = "mailings/messages.html"
+    context_object_name = "messages"
 
 
 class MessageCreate(CreateView):
@@ -68,14 +56,62 @@ class MessageCreate(CreateView):
 class MessageUpdate(UpdateView):
     model = Message
     form_class = CreateMessage
-    template_name = "mailings/create.html"
     context_object_name = "message"
+    template_name = "mailings/create.html"
+    success_url = reverse_lazy("mailings:main")
 
 
 class MessageDetail(DetailView):
     model = Message
-    template_name = "mailings/detail.html"
     context_object_name = "message"
+    template_name = "mailings/detail.html"
+    success_url = reverse_lazy("mailings:main")
+
+
+class MessageDelete(DeleteView):
+    model = Message
+    context_object_name = "message"
+    template_name = "mailings/delete.html"
+    success_url = reverse_lazy("mailings:main")
+
+
+# New class
+# Newsletter
+class NewsletterCreate(CreateView):
+    model = Newsletter
+    form_class = CreateNewsletter
+    template_name = "mailings/create.html"
+    context_object_name = "newsletter"
+    success_url = reverse_lazy("mailings:main")
+
+
+class NewsletterUpdate(UpdateView):
+    model = Newsletter
+    form_class = UpdateNewsletter
+    template_name = "mailings/create.html"
+    context_object_name = "newsletter"
+
+
+class NewsletterDetail(DetailView):
+    model = Newsletter
+    template_name = "mailings/detail.html"
+    context_object_name = "newsletter"
+    success_url = reverse_lazy("mailings:main")
+
+
+class NewsletterDelete(DeleteView):
+    model = Newsletter
+    context_object_name = "newsletter"
+    template_name = "mailings/delete.html"
+    success_url = reverse_lazy("mailings:main")
+
+
+# New class
+# AttemptSend
+class AttemptSendList(ListView):
+    model = AttemptSend
+    template_name = "mailings/attemptsend_list.html"
+    context_object_name = "attemptsends"
 
 
 class AttemptSendCreate(CreateView):
@@ -88,20 +124,20 @@ class AttemptSendCreate(CreateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         attemptsend = form.save(commit=False)
         
-        sending_messages = SendingMessagesEmail(attemptsend.news_letter)
-        result = sending_messages.attempt_send()
-        logger_views.info(result)
         newsletter_pk = attemptsend.news_letter.pk
-        
         newsletter = Newsletter.objects.filter(pk=newsletter_pk)[0]
         newsletter.status = "Started"
         newsletter.save()
         
-        if not result:
-            attemptsend.status = "Successful"
-        else:
-            attemptsend.status = "Not_successful"
-            attemptsend.news_letter.status = "Started"
+        if attemptsend.status == "Start":
+            sending_messages = SendingMessagesEmail(attemptsend.news_letter)
+            result = sending_messages.attempt_send()
+            logger_views.info(result)
+            
+            if result:
+                attemptsend.status = "Successful"
+            else:
+                attemptsend.status = "Not_successful"
         
         attemptsend.save()
         
@@ -114,14 +150,39 @@ class AttemptSendUpdate(UpdateView):
     template_name = "mailings/create.html"
     context_object_name = "attemptsend"
 
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        attemptsend = form.save(commit=False)
+        
+        newsletter_pk = attemptsend.news_letter.pk
+        newsletter = Newsletter.objects.filter(pk=newsletter_pk)[0]
+        newsletter.status = "Started"
+        newsletter.save()
+        
+        if attemptsend.status == "Start":
+            sending_messages = SendingMessagesEmail(attemptsend.news_letter)
+            result = sending_messages.attempt_send()
+            logger_views.info(result)
+            
+            if result:
+                attemptsend.status = "Successful"
+            else:
+                attemptsend.status = "Not_successful"
+        
+        attemptsend.save()
+        
+        return super().form_valid(form)
+
+    success_url = reverse_lazy("mailings:attemptsend_list")
+
 
 class AttemptSendDetail(DetailView):
     model = AttemptSend
     template_name = "mailings/detail.html"
     context_object_name = "attemptsend"
+    
 
-
-class AttemptSendView(ListView):
-    model = Newsletter
-    template_name = "mailings/attemptsend_list.html"
+class AttemptSendDelete(DeleteView):
+    model = AttemptSend
     context_object_name = "attemptsend"
+    template_name = "mailings/delete.html"
+    success_url = reverse_lazy("mailings:main")

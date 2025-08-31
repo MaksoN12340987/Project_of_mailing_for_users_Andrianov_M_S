@@ -25,26 +25,32 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active me-3" aria-current="page" href="{% url 'mailings:main' %}">Главная</a>
+                    <a class="nav-link active me-3 text-white" aria-current="page" href="{% url 'mailings:main' %}">Главная</a>
                   </li>
+                  
                   <li class="nav-item">
-                    <a class="nav-link me-3" href="{% url 'mailings:create_attempt' %}">Запуск рассылки</a>
+                    <a class="nav-link me-3 text-white" href="{% url 'mailings:create_attempt' %}">Запуск рассылки</a>
                   </li>
+                  
                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Создать
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'mailings:create_message' %}">Сообщение рассылки</a></li>
+                      <li><a class="dropdown-item" href="{% url 'mailings:list_message' %}">Сообщение рассылки</a></li>
                       <li><a class="dropdown-item" href="{% url 'mailings:create' %}">Рассылку</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="{% url 'users:create' %}">Получателя рассылки</a></li>
                     </ul>
                   </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link me-3 text-white" href="{% url 'mailings:list_message' %}">Сообщеия</a>
+                  </li>
                 </ul>
-                <form class="d-flex" role="search">
-                  <a href="{% url 'mailings:attemptsend_list' %}" class="btn btn-success">Просмотреть запущеные рассылки</a>
-                </form>
+                
+                <a href="{% url 'mailings:attemptsend_list' %}" class="btn btn-success">Просмотреть запущеные рассылки</a>
+
               </div>
             
             </div>

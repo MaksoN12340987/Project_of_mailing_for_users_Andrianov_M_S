@@ -15,8 +15,11 @@ python -Xutf8 manage.py dumpdata mailings.AttemptSend --output mailings/fixture/
 python -Xutf8 manage.py dumpdata users.MailingRecipient --output users/fixture/MailingRecipient.json --indent 4
 
 
-python manage.py loaddata blog/fixture/posts.json --format json
-python manage.py loaddata users/fixture/users.json --format json
+python manage.py loaddata mailings/fixture/Message.json --format json
+
+python manage.py loaddata users/fixture/MailingRecipient.json --format json
+
+2025-09-01 00:00:00
 
 
 

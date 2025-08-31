@@ -61,8 +61,9 @@ class Newsletter(models.Model):
 
 class AttemptSend(models.Model):
     STATUS = [
-        ("Not_start", "Did not start"),
-        ("Not_successful", "event started"),
+        ("Start", "Start"),
+        ("Not_start", "Not start"),
+        ("Not_successful", "Warning"),
         ("Successful", "event completed"),
     ]
     status = models.CharField(
