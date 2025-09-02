@@ -93,7 +93,6 @@ class AttemptSend(models.Model):
     STATUS = [
         # В зависимости от статуса меняется поведение
         # Рассылка отправляется или нет
-        ("Start", "Start"),
         ("Not_start", "Not start"),
         ("Not_successful", "Warning"),
         ("Successful", "event completed"),

@@ -30,63 +30,96 @@
   <h3 class="p-3">Управление рассылками:</h3>
   <div class="row ms-3 me-2">
           
-          <div class="col-2">
-            <p>Управлени</p>
-          </div>
+    <div class="col-3">
+      <p>Статус</p>
+    </div>
 
-          <div class="col-2">
-            <p>Статус</p>
-          </div>
+    <div class="col-3">
+      <p>Дата и время попытки</p>
+    </div>
 
-          <div class="col-3">
-            <p>Рассылка</p>
-          </div>
+    <div class="col-3">
+      <p>Ответ почтового сервера</p>
+    </div>
           
-          <div class="col-3">
-            <p>Дата и время попытки</p>
-          </div>
-
-          <div class="col-2">
-            <p>Удаление</p>
-          </div>
+    <div class="col-3">
+      <p>Рассылка</p>
+    </div>
         
-        </div>
+  </div>
     
-  <div class="container mb-3">
+  <div class="container">
     {% for attemptsend in attemptsends %}
 
-      <div class="container mb-3 bg-post-newsletter rounded-3">
-        <div class="row mt-2">
-          
-          <div class="col-2 p-3">
-            {% if attemptsend.status == 'Start' %}
-              <a href="{% url 'mailings:update_attempt' attemptsend.pk %}" class="btn btn-info">Начато</a>
-            {% elif attemptsend.status == 'Not_start' %}
-              <a href="{% url 'mailings:update_attempt' attemptsend.pk %}" class="btn btn-success">Запустить</a>
-            {% elif attemptsend.status == 'Not_successful' %}
-              <a href="{% url 'mailings:update_attempt' attemptsend.pk %}" class="btn btn-warning">Редактировать</a>
-            {% else %}
-              <a href="{% url 'mailings:update_attempt' attemptsend.pk %}" class="btn btn-dark">Завершено</a>
-            {% endif %}
-          </div>
-
-          <div class="col-2 p-3">
-            {{ attemptsend.status }}
-          </div>
-
-          <div class="col-3 p-3">
-            {{ attemptsend.news_letter.message }}
-          </div>
-
-          <div class="col-3 p-3">
-            {{ attemptsend.time_attempt }}
-          </div>
-          
-          <div class="col-2 p-3">
-            <a href="{% url 'mailings:update_attempt' attemptsend.pk %}" class="btn btn-outline-warning">УДАЛИТЬ</a>
-          </div>
+      <div class="container mb-3">
         
-        </div>
+        {% if attemptsend.status == 'Not_start' %}
+          
+          <div class="alert alert-primary rounded-3" role="alert">
+            <div class="row">
+              <div class="col-3">
+                <p>Не запущено</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.time_attempt }}</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.mail_server_response }}</p>
+              </div>
+              
+              <div class="col-3">
+                <p>{{ attemptsend.news_letter }}</p>
+              </div>
+            </div>
+          </div>
+          
+        {% elif attemptsend.status == 'Not_successful' %}
+          
+          <div class="alert alert-danger rounded-3" role="alert">
+            <div class="row">
+              <div class="col-3">
+                <p>Завершено с ошибкой</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.time_attempt }}</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.mail_server_response }}</p>
+              </div>
+              
+              <div class="col-3">
+                <p>{{ attemptsend.news_letter }}</p>
+              </div>
+            </div>
+          </div>
+
+        {% else %}
+          
+          <div class="alert alert-info rounded-3" role="alert">
+            <div class="row">
+              <div class="col-3">
+                <p>Успешно завершено</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.time_attempt }}</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.mail_server_response }}</p>
+              </div>
+              
+              <div class="col-3">
+                <p>{{ attemptsend.news_letter }}</p>
+              </div>
+            </div>
+          </div>
+
+        {% endif %}
       </div>
       
     {% endfor %}

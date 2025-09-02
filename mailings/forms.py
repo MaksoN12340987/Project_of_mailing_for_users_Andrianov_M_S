@@ -92,22 +92,15 @@ class Attempt_send_form(forms.ModelForm):
     class Meta:
         model = AttemptSend
         fields = [
-            "status",
             "news_letter",
         ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["status"].widget.attrs.update(
-            {
-                "class": "form-select-M",
-                "placeholder": "Тема сообщения",
-            }
-        )
         self.fields["news_letter"].widget.attrs.update(
             {
                 "class": "form-select-M",
-                "placeholder": "Содержание сообщения ",
+                "placeholder": "Содержание сообщения",
             }
         )

@@ -14,6 +14,8 @@ from django.views.generic import (
     UpdateView,
 )
 
+from users.models import MailingRecipient
+
 from .forms import CreateNewsletter, UpdateNewsletter, CreateMessage, Attempt_send_form
 from .models import Newsletter, Message, AttemptSend
 
@@ -35,7 +37,15 @@ class MainView(ListView):
     model = Newsletter
     template_name = "mailings/main.html"
     context_object_name = "newsletters"
-
+    
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        
+        context["total_rvsslinks"] = len(Newsletter.objects.all())
+        context["active_rvsslinks"] = len(Newsletter.objects.filter(status="Started"))
+        context["total_recipients"] = len(MailingRecipient.objects.all())
+        
+        return context
 
 # New class
 # Message
@@ -117,7 +127,7 @@ class AttemptSendList(ListView):
 class AttemptSendCreate(CreateView):
     model = AttemptSend
     form_class = Attempt_send_form
-    template_name = "mailings/create.html"
+    template_name = "mailings/create_attempt_send.html"
     context_object_name = "attemptsend"
     success_url = reverse_lazy("mailings:main")
 
@@ -125,66 +135,20 @@ class AttemptSendCreate(CreateView):
         attemptsend = form.save(commit=False)
         
         newsletter_pk = attemptsend.news_letter.pk
-        newsletter = Newsletter.objects.filter(pk=newsletter_pk)[0]
+        newsletter = Newsletter.objects.get(pk=newsletter_pk)
         newsletter.status = "Started"
         newsletter.save()
         
-        if attemptsend.status == "Start":
-            sending_messages = SendingMessagesEmail(attemptsend.news_letter)
-            result = sending_messages.attempt_send()
-            logger_views.info(result)
+        sending_messages = SendingMessagesEmail(attemptsend.news_letter)
+        result = sending_messages.attempt_send()
+        logger_views.info(result)
             
-            if result:
-                attemptsend.status = "Successful"
-            else:
-                attemptsend.status = "Not_successful"
+        if result:
+            attemptsend.status = "Successful"
+            attemptsend.mail_server_response = "Успешно"
+        else:
+            attemptsend.status = "Not_successful"
         
         attemptsend.save()
         
         return super().form_valid(form)
-
-
-class AttemptSendUpdate(UpdateView):
-    model = AttemptSend
-    form_class = Attempt_send_form
-    template_name = "mailings/create.html"
-    context_object_name = "attemptsend"
-
-    def form_valid(self, form: BaseModelForm) -> HttpResponse:
-        attemptsend = form.save(commit=False)
-        
-        # Присваеваем статус Newsletter
-        newsletter_pk = attemptsend.news_letter.pk
-        newsletter = Newsletter.objects.filter(pk=newsletter_pk)[0]
-        newsletter.status = "Started"
-        newsletter.save()
-        
-        # Запускаем отправку сообщений по статусу
-        if attemptsend.status == "Start":
-            sending_messages = SendingMessagesEmail(attemptsend.news_letter)
-            result = sending_messages.attempt_send()
-            logger_views.info(result)
-            
-            if result:
-                attemptsend.status = "Successful"
-            else:
-                attemptsend.status = "Not_successful"
-        
-        attemptsend.save()
-        
-        return super().form_valid(form)
-
-    success_url = reverse_lazy("mailings:attemptsend_list")
-
-
-class AttemptSendDetail(DetailView):
-    model = AttemptSend
-    template_name = "mailings/detail.html"
-    context_object_name = "attemptsend"
-    
-
-class AttemptSendDelete(DeleteView):
-    model = AttemptSend
-    context_object_name = "attemptsend"
-    template_name = "mailings/delete.html"
-    success_url = reverse_lazy("mailings:main")

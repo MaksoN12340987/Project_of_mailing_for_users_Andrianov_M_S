@@ -27,7 +27,36 @@
 
 
 {% block content %}
-  <h3 class="p-3">Ваши рассылки:</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col-7">
+        <h2 class="p-5">Ваши рассылки:</h2>
+      </div>
+
+      <div class="col-5 p-2 text-end">
+        <div class="container p-2">
+          <span class="border border-success p-2 rounded-3">
+            Активных рассылок: {{ active_rvsslinks }}
+          </span>
+        </div>
+
+        <div class="container p-2 mt-2"> 
+          <span class="border border-warning-subtle p-2 rounded-3">
+            Всего рвссылок: {{ total_rvsslinks }}
+          </span>
+        </div>
+
+        <div class="container p-2 mt-2">
+          <span class="border border-primary-subtle p-2 rounded-3">
+            Получателей: {{ total_recipients }}
+          </span>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+
   <div class="row ms-2 me-2">
           
           <div class="col-3">
@@ -77,6 +106,16 @@
           </div>
         
         </div>
+
+        <div class="position-relative">
+          <div class="position-absolute bottom-0 end-0">
+            <a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" href="{% url 'mailings:update_newsletter' newsletter.pk %}">
+              <svg class="bi" aria-hidden="true"><use xlink:href="../../static/images/arrow-through-heart.svg"></use></svg>
+              Редактировать
+            </a>
+          </div>
+         </div>
+
       </div>
       
     {% endfor %}
@@ -88,7 +127,7 @@
 
 
 {% block bottom %}
-  <div class="container">
+  <div class="sticky-xxl-bottom">
     
   </div>
 {% endblock %}
