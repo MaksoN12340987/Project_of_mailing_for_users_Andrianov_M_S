@@ -1,10 +1,14 @@
 import logging
 
+from django.db.models import Model
+
 from email.mime.image import MIMEImage
 from functools import lru_cache
 from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.core.mail import EmailMultiAlternatives
+
+from config.settings import EMAIL_HOST_USER
 
 log_service = logging.getLogger(__name__)
 file_handler = logging.FileHandler(f"log/{__name__}.log", mode="a", encoding="UTF8")
@@ -18,7 +22,7 @@ log_service.setLevel(logging.INFO)
 
 
 class SendingMessagesEmail:
-    newsletter = None
+    newsletter: Model
     
     def __init__(self, newsletter) -> None:
         self.newsletter = newsletter
@@ -26,7 +30,13 @@ class SendingMessagesEmail:
         self.list_emails = self.__validation()
         self.message = ""
     
-    def __validation(self):
+    def __validation(self) -> list[str]:
+        """Метод преобразует множество в список строк с
+        почтовыми адресами получатеелй
+
+        Returns:
+            _type_: _description_
+        """        
         result = []
         for i, value in enumerate(self.newsletter.recipients.all()): # type: ignore
             result.append(value.email)
@@ -34,7 +44,17 @@ class SendingMessagesEmail:
         return result
 
     @lru_cache()
-    def __logo_data(self, path_to_image: str):
+    def __logo_data(self, path_to_image: str) -> MIMEImage:
+        """Метод подготовки изображения
+        к приереплению в шаблон
+
+        Args:
+            path_to_image (str): путь до изображения
+
+        Returns:
+            MIMEImage: обьект строкового представлеия
+                        изображения
+        """        
         log_service.info(path_to_image)
         logo = None
         
@@ -48,21 +68,31 @@ class SendingMessagesEmail:
         except PermissionError:
             pass
         
-        return logo
+        return logo # type: ignore
 
-    def __create_message(self, email, path_to_image: str):
-        
-        subject = f"{self.newsletter.message.subject}" # type: ignore
+    def __create_message(self, email: str, path_to_image: str) -> int:
+        """Метод создает шаблон письма, добавляет изображение,
+        если оно загружено, и отправляет на переданный имейл
+
+        Args:
+            email (str): емейл получателя
+            path_to_image (str): путь до изображения
+
+        Returns:
+            _int_: Число, где 1 - успешно отправлено
+        """        
+        subject = self.newsletter.message.subject # type: ignore
+        message = self.newsletter.message.content # type: ignore
         content = f"""
         <html>
             <body>
-                <p>{self.newsletter.message.content}</p>
+                <p>{message}</p>
                 <br>
                 <img src="cid:image" tabindex='0'>
             </body>
         </html>
         """
-        transmitter = "gorscheneow2018@yandex.ru"
+        transmitter = EMAIL_HOST_USER
         
         message = EmailMultiAlternatives(
             subject,
@@ -81,7 +111,14 @@ class SendingMessagesEmail:
 
         return message.send(fail_silently=False)
     
-    def attempt_send(self):
+    def attempt_send(self) -> int:
+        """Метод запускает отправки сообщений по переданным
+        почтовым адресам
+
+        Returns:
+            _int_: 1 - успешно отправено
+                   2 - не отправлено
+        """        
         list_responce = []
         for i, value in enumerate(self.list_emails):
             list_responce.append(self.__create_message(value, self.path_to_image))

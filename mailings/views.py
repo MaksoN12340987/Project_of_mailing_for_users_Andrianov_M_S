@@ -153,11 +153,13 @@ class AttemptSendUpdate(UpdateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         attemptsend = form.save(commit=False)
         
+        # Присваеваем статус Newsletter
         newsletter_pk = attemptsend.news_letter.pk
         newsletter = Newsletter.objects.filter(pk=newsletter_pk)[0]
         newsletter.status = "Started"
         newsletter.save()
         
+        # Запускаем отправку сообщений по статусу
         if attemptsend.status == "Start":
             sending_messages = SendingMessagesEmail(attemptsend.news_letter)
             result = sending_messages.attempt_send()

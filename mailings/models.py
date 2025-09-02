@@ -4,6 +4,14 @@ from users.models import MailingRecipient
 
 
 class Message(models.Model):
+    """Модель содержания рассылки, содержит:
+    subject - Тема письма
+    content - Содержание
+    attached_file - Фотография по желания
+
+    Returns:
+        __str__: Заголовок сообщения
+    """    
     subject = models.CharField(max_length=200, verbose_name="Тема", unique=True)
     content = models.TextField(max_length=200, verbose_name="Содержание")
     attached_file = models.ImageField(
@@ -23,6 +31,18 @@ class Message(models.Model):
 
 
 class Newsletter(models.Model):
+    """Модель рассылки, состоит из полей:
+    status - По статусу можно определить, отправлялась ли рассылка
+    
+    first_sending - Дата и время первой отправки
+    сompletion_time - Дата и время окончания отправки
+    
+    message - зависимость один к одному модели Message
+    recipients - зависимость к модели юзеров
+
+    Returns:
+        __str__: Тема рассылки
+    """    
     STATUS_CHOICES = [
         ("Created", "event created"),
         ("Started", "event started"),
@@ -60,7 +80,19 @@ class Newsletter(models.Model):
 
 
 class AttemptSend(models.Model):
+    """Модель попытки рассылки, содержит поля:
+    status - По статусу модели запускается рассылка
+    time_attempt - Дата и время попытки
+    
+    mail_server_response - Ответ почтового сервера
+    news_letter - зависимоть к модели Newsletter
+
+    Returns:
+        _type_: _description_
+    """    
     STATUS = [
+        # В зависимости от статуса меняется поведение
+        # Рассылка отправляется или нет
         ("Start", "Start"),
         ("Not_start", "Not start"),
         ("Not_successful", "Warning"),
