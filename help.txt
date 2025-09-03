@@ -17,6 +17,8 @@ python -Xutf8 manage.py dumpdata users.MailingRecipient --output users/fixture/M
 
 python manage.py loaddata mailings/fixture/Message.json --format json
 
+python manage.py loaddata mailings/fixture/Newsletter.json --format json
+
 python manage.py loaddata users/fixture/MailingRecipient.json --format json
 
 2025-09-01 00:00:00
@@ -27,9 +29,7 @@ python manage.py makemigrations
 
 python manage.py migrate
 python manage.py migrate auth zero
-python manage.py migrate users zero
-python manage.py migrate blog zero
-python manage.py migrate catalog zero
+python manage.py migrate mailings zero
 
 python manage.py mailing_clean
 

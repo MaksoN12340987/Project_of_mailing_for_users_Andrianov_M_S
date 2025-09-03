@@ -35,7 +35,9 @@ class Command(BaseCommand):
             attemptsend.delete()
             if attemptsend:
                 self.stdout.write(
-                    self.style.SUCCESS(f"Successfully delete: {attemptsend.news_letter}")
+                    self.style.SUCCESS(
+                        f"Successfully delete: {attemptsend.news_letter}"
+                    )
                 )
             else:
                 self.stdout.write(self.style.WARNING("Student already not exists"))

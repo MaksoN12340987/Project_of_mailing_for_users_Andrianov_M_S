@@ -23,24 +23,24 @@ log_service.setLevel(logging.INFO)
 
 class SendingMessagesEmail:
     newsletter: Model
-    
+
     def __init__(self, newsletter) -> None:
         self.newsletter = newsletter
-        self.path_to_image = f'media/{newsletter.message.attached_file}'
+        self.path_to_image = f"media/{newsletter.message.attached_file}"
         self.list_emails = self.__validation()
         self.message = ""
-    
+
     def __validation(self) -> list[str]:
         """Метод преобразует множество в список строк с
         почтовыми адресами получатеелй
 
         Returns:
             _type_: _description_
-        """        
+        """
         result = []
-        for i, value in enumerate(self.newsletter.recipients.all()): # type: ignore
+        for i, value in enumerate(self.newsletter.recipients.all()):  # type: ignore
             result.append(value.email)
-        
+
         return result
 
     @lru_cache()
@@ -54,21 +54,21 @@ class SendingMessagesEmail:
         Returns:
             MIMEImage: обьект строкового представлеия
                         изображения
-        """        
+        """
         log_service.info(path_to_image)
         logo = None
-        
+
         try:
-            with open(path_to_image, 'rb') as f:
+            with open(path_to_image, "rb") as f:
                 logo_data = f.read()
                 logo = MIMEImage(logo_data)
-                logo.add_header('Content-ID', '<image>')
+                logo.add_header("Content-ID", "<image>")
         except FileNotFoundError:
             pass
         except PermissionError:
             pass
-        
-        return logo # type: ignore
+
+        return logo  # type: ignore
 
     def __create_message(self, email: str, path_to_image: str) -> int:
         """Метод создает шаблон письма, добавляет изображение,
@@ -80,9 +80,9 @@ class SendingMessagesEmail:
 
         Returns:
             _int_: Число, где 1 - успешно отправлено
-        """        
-        subject = self.newsletter.message.subject # type: ignore
-        message = self.newsletter.message.content # type: ignore
+        """
+        subject = self.newsletter.message.subject  # type: ignore
+        message = self.newsletter.message.content  # type: ignore
         content = f"""
         <html>
             <body>
@@ -93,24 +93,19 @@ class SendingMessagesEmail:
         </html>
         """
         transmitter = EMAIL_HOST_USER
-        
-        message = EmailMultiAlternatives(
-            subject,
-            content,
-            transmitter,
-            to=[email]
-        )
+
+        message = EmailMultiAlternatives(subject, content, transmitter, to=[email])
         log_service.info(f"message: {message}")
-        
-        message.mixed_subtype = 'related'
+
+        message.mixed_subtype = "related"
         message.attach_alternative(content, "text/html")
         try:
-            message.attach(self.__logo_data(path_to_image)) # type: ignore
+            message.attach(self.__logo_data(path_to_image))  # type: ignore
         except ValueError:
             pass
 
         return message.send(fail_silently=False)
-    
+
     def attempt_send(self) -> int:
         """Метод запускает отправки сообщений по переданным
         почтовым адресам
@@ -118,14 +113,14 @@ class SendingMessagesEmail:
         Returns:
             _int_: 1 - успешно отправено
                    2 - не отправлено
-        """        
+        """
         list_responce = []
         for i, value in enumerate(self.list_emails):
             list_responce.append(self.__create_message(value, self.path_to_image))
-        
+
         log_service.info(f"Результат отправки: {list_responce}")
         for responce in list_responce:
             if not responce:
                 return 0
-        
+
         return 1

@@ -37,15 +37,16 @@ class MainView(ListView):
     model = Newsletter
     template_name = "mailings/main.html"
     context_object_name = "newsletters"
-    
+
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
-        
+
         context["total_rvsslinks"] = len(Newsletter.objects.all())
         context["active_rvsslinks"] = len(Newsletter.objects.filter(status="Started"))
         context["total_recipients"] = len(MailingRecipient.objects.all())
-        
+
         return context
+
 
 # New class
 # Message
@@ -133,22 +134,22 @@ class AttemptSendCreate(CreateView):
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         attemptsend = form.save(commit=False)
-        
+
         newsletter_pk = attemptsend.news_letter.pk
         newsletter = Newsletter.objects.get(pk=newsletter_pk)
         newsletter.status = "Started"
         newsletter.save()
-        
+
         sending_messages = SendingMessagesEmail(attemptsend.news_letter)
         result = sending_messages.attempt_send()
         logger_views.info(result)
-            
+
         if result:
             attemptsend.status = "Successful"
             attemptsend.mail_server_response = "Успешно"
         else:
             attemptsend.status = "Not_successful"
-        
+
         attemptsend.save()
-        
+
         return super().form_valid(form)
