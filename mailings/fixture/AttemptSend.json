@@ -3,19 +3,19 @@
     "model": "mailings.attemptsend",
     "pk": 1,
     "fields": {
-        "status": "Successful",
-        "time_attempt": "2025-08-31T21:08:15.778Z",
-        "mail_server_response": "Нет ответа",
-        "news_letter": 1
+        "status": "Not_start",
+        "time_attempt": "2025-09-03T14:24:54.394Z",
+        "mail_server_response": "Успешно",
+        "news_letter": 2
     }
 },
 {
     "model": "mailings.attemptsend",
     "pk": 2,
     "fields": {
-        "status": "Successful",
-        "time_attempt": "2025-08-31T21:00:37.616Z",
-        "mail_server_response": "Нет ответа",
+        "status": "Not_successful",
+        "time_attempt": "2025-09-03T14:25:02.282Z",
+        "mail_server_response": "Успешно",
         "news_letter": 1
     }
 },
@@ -23,18 +23,8 @@
     "model": "mailings.attemptsend",
     "pk": 3,
     "fields": {
-        "status": "Not_start",
-        "time_attempt": "2025-09-02T16:40:54.138Z",
-        "mail_server_response": "Нет ответа",
-        "news_letter": 1
-    }
-},
-{
-    "model": "mailings.attemptsend",
-    "pk": 4,
-    "fields": {
         "status": "Successful",
-        "time_attempt": "2025-09-02T16:51:29.715Z",
+        "time_attempt": "2025-09-03T14:25:11.453Z",
         "mail_server_response": "Успешно",
         "news_letter": 1
     }

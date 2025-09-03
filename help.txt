@@ -19,11 +19,14 @@ python manage.py loaddata mailings/fixture/Message.json --format json
 
 python manage.py loaddata mailings/fixture/Newsletter.json --format json
 
+python manage.py loaddata mailings/fixture/AttemptSend.json --format json
+
 python manage.py loaddata users/fixture/MailingRecipient.json --format json
+
+
 
 2025-09-01 00:00:00
 
- bg-post-newsletter
 
 python manage.py makemigrations
 
