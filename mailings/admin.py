@@ -16,8 +16,6 @@ class MessageAdmin(admin.ModelAdmin):
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = (
         "status",
-        "message",
-        "recipients",
         "first_sending",
         "сompletion_time",
     )
@@ -31,7 +29,6 @@ class NewsletterAdmin(admin.ModelAdmin):
 class AttemptSendAdmin(admin.ModelAdmin):
     list_display = (
         "status",
-        "news_letter",
         "time_attempt",
         "mail_server_response",
     )

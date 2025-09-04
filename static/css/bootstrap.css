@@ -508,8 +508,9 @@
   background-color: rgba(var(--bs-primary-rgb-footer), var(--bs-bg-opacity)) !important;
 }
 
-.bg-primary-container-blog {
-  background-color: var(--bs-primary-bg-subtle) !important;
+.bg-container-auth {
+  --bs-main-block: 0, 0, 0;
+  background-color: rgba(var(--bg), 0.75) !important;
 }
 
 .btn-top-line {
