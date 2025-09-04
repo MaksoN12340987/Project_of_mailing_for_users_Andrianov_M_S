@@ -7,22 +7,23 @@ from .models import MailingRecipient
 class UsersAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "is_superuser",
+        "email",
         "username",
         "password",
-        "first_name",
-        "last_name",
         "is_staff",
         "is_active",
-        "photo",
-        "email",
-        "comment",
+        "is_superuser",
+        "last_login",
+        "first_name",
+        "last_name",
         "phone_number",
         "date_joined",
-        "last_login",
+        "comment",
+        "photo",
     )
     list_filter = (
         "username",
+        "is_active",
         "is_superuser",
     )
-    search_fields = ("username",)
+    search_fields = ("first_name", "last_name")

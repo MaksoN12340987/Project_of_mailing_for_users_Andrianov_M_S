@@ -62,7 +62,7 @@ class MessagesView(ListView):
         return context
 
 
-class MessageCreate(CreateView):
+class MessageCreate(LoginRequiredMixin, CreateView):
     model = Message
     form_class = CreateMessage
     template_name = "mailings/create.html"
@@ -75,7 +75,7 @@ class MessageCreate(CreateView):
         return form_valid
 
 
-class MessageUpdate(UpdateView):
+class MessageUpdate(LoginRequiredMixin, UpdateView):
     model = Message
     form_class = CreateMessage
     context_object_name = "message"
@@ -95,7 +95,7 @@ class MessageDetail(DetailView):
     success_url = reverse_lazy("mailings:main")
 
 
-class MessageDelete(DeleteView):
+class MessageDelete(LoginRequiredMixin, DeleteView):
     model = Message
     context_object_name = "message"
     template_name = "mailings/delete.html"
@@ -104,7 +104,7 @@ class MessageDelete(DeleteView):
 
 # New class
 # Newsletter
-class NewsletterCreate(CreateView):
+class NewsletterCreate(LoginRequiredMixin, CreateView):
     model = Newsletter
     form_class = CreateNewsletter
     template_name = "mailings/create.html"
@@ -112,7 +112,7 @@ class NewsletterCreate(CreateView):
     success_url = reverse_lazy("mailings:main")
 
 
-class NewsletterUpdate(UpdateView):
+class NewsletterUpdate(LoginRequiredMixin, UpdateView):
     model = Newsletter
     form_class = UpdateNewsletter
     template_name = "mailings/create.html"
@@ -141,7 +141,7 @@ class AttemptSendList(ListView):
     context_object_name = "attemptsends"
 
 
-class AttemptSendCreate(CreateView):
+class AttemptSendCreate(LoginRequiredMixin, CreateView):
     model = AttemptSend
     form_class = Attempt_send_form
     template_name = "mailings/create_attempt_send.html"
