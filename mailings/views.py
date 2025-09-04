@@ -45,6 +45,7 @@ class MainView(ListView):
         context["active_rvsslinks"] = len(Newsletter.objects.filter(status="Started"))
         context["total_recipients"] = len(MailingRecipient.objects.all())
 
+        logger_views.info(f"{context}".replace(",", "\n"))
         return context
 
 
@@ -54,6 +55,11 @@ class MessagesView(ListView):
     model = Message
     template_name = "mailings/messages.html"
     context_object_name = "messages"
+    
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        logger_views.info(f"{context}".replace(",", "\n"))
+        return context
 
 
 class MessageCreate(CreateView):
@@ -62,6 +68,11 @@ class MessageCreate(CreateView):
     template_name = "mailings/create.html"
     context_object_name = "message"
     success_url = reverse_lazy("mailings:main")
+    
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        form_valid = super().form_valid(form)
+        logger_views.info(form_valid)
+        return form_valid
 
 
 class MessageUpdate(UpdateView):
@@ -70,6 +81,11 @@ class MessageUpdate(UpdateView):
     context_object_name = "message"
     template_name = "mailings/create.html"
     success_url = reverse_lazy("mailings:main")
+    
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        form_valid = super().form_valid(form)
+        logger_views.info(form_valid)
+        return form_valid
 
 
 class MessageDetail(DetailView):
