@@ -38,6 +38,13 @@ class MainView(ListView):
     template_name = "mailings/main.html"
     context_object_name = "newsletters"
 
+    def get_queryset(self):
+        queryset = cache.get("ProductListView_queryset")
+        if not queryset:
+            queryset = super().get_queryset()
+        #     cache.set("authors_queryset", queryset, 60 * 15)
+        return queryset
+
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
 
@@ -139,6 +146,13 @@ class AttemptSendList(ListView):
     model = AttemptSend
     template_name = "mailings/attemptsend_list.html"
     context_object_name = "attemptsends"
+
+    def get_queryset(self):
+        queryset = cache.get("ProductListView_queryset")
+        if not queryset:
+            queryset = super().get_queryset()
+        #     cache.set("authors_queryset", queryset, 60 * 15)
+        return queryset
 
 
 class AttemptSendCreate(LoginRequiredMixin, CreateView):
