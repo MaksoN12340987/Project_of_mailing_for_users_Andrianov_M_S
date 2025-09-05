@@ -6,19 +6,32 @@
     <title>{% block title %}Авторизация{% endblock %}</title>
     <link href="\static\css\bootstrap.css" rel="stylesheet">
     <script defer src="\static\js\bootstrap.bundle.js"></script>
+    <script defer src="\static\js\time.js"></script>
   <body>
 
     <div class="container-fluid-mailing text-start">
       <div class="container-md-page_title text-start">
 
-        <div class="container-fluid text-end mt-4 me-4 bg-container-auth">
-          <img src="../../media/{{ user.preview }}" width="30" height="30" class="d-inline-block mt-1">
+        <div class="container-fluid" style="height: 1rem;"></div>
+
+        
+        <div class="container">
+          <div class="hstack gap-3">
+            <div class="d-flex p-2">
+              <p>TIME: </p>
+              <p class="ms-2" id="clock"></p>
+            </div>
+            <div class="p-2 ms-auto bg-auth rounded-5">
+              <img src="/media/{{ user.photo }}" width="30" height="30" class="d-inline-block mt-1">
+            </div>
+            <div class="p-2 bg-auth rounded-5">
+              <h6 class="ms-2 me-2 mt-1">{{ user.username }}</h6>
+            </div>
+          </div>
         </div>
 
         <div class="row p-1">
           <div class="col-6 ms-5">
-
-            <div class="container-fluid" style="height: 4rem;"></div>
 
             <h1>УПРАВЛЯЙТЕ</h1>
             <h1>РАССЫЛКАМИ КЛИЕНТАМ</h1>
@@ -88,6 +101,5 @@
         </div>
       </div>
     </div>
-    
   </body>
 </html>
