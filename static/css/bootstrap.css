@@ -378,6 +378,13 @@
   color: rgb(255, 255, 255);
 }
 
+.bg-user-create-unit {
+  --bs-rgb-post-card: 1, 1, 1;
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-rgb-post-card), 0.7) !important;
+  color: rgb(255, 255, 255);
+}
+
 
 .container-md-page_title {
   --bs-form-select-bg-img-home: url("../images/base.jpg");

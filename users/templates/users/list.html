@@ -11,20 +11,20 @@
 
       <div class="container-fluid text-start" style="height: 3rem;"></div>
 
-      <div class="container-fluid text-gray-right p-4">
-        <h1>Список пользователей</h1>
+      <div class="d-flex text-white p-5">
+        <h1 class="p-2 bg-user-create-text rounded-5">Список пользователей</h1>
       </div>
 
       <div class="row row-cols-2 ms-1 me-1">
         {% for user in users %}
       
-          <div class="col">
+          <div class="col bg-user-create-unit rounded-5">
 
             <div class="container bg-item text-white-card mb-3 p-1 rounded-4">
                 
-              <div class="d-flex align-items-center">
-                <img src="../../../media/{{ user.preview }}" alt="" width="34" height="34" class="d-inline-block mt-1 ms-1">
-                <div class="flex-grow-0"><h4 class="mt-2 ms-1">{{ user.first_name }}</h4></div>
+              <div class="d-flex align-items-center p-2">
+                <img src="/media/{{ user.photo }}" alt="" width="50" height="50" class="d-inline-block mt-1 ms-1 rounded-5">
+                <div class="flex-grow-0"><h4 class="mt-2 ms-3">{{ user.first_name }}</h4></div>
               </div>
 
               <p class="ms-2">
