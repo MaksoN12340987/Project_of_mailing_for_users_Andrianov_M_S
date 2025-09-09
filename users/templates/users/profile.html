@@ -15,7 +15,7 @@
         <h1>Ваш профиль {{ user.username }}</h1>
       </div>
 
-      <div class="row p-4 text-start bg-user-create-form rounded-3">
+      <div class="row p-2 mb-3 text-start bg-user-create-form rounded-3">
 
           <div class="col-5">
             <div class="border">
@@ -63,14 +63,13 @@
 
           </div>
       
-        </div>
+      </div>
 
-      {% if perms.users.change_baseuser %}
 
-          <div class="row me-4 text-start">
+        <div class="row text-start">
 
             <div class="col-5">
-              <div class="container-fluid text-gray-right bg-user-create-form rounded-3 me-4">
+              <div class="container text-gray-right bg-user-create-form rounded-4 me-4">
                 <h1>Обновления профиля:</h1>
 
                 <form method="post" class="mb-5" enctype="multipart/form-data">
@@ -86,11 +85,7 @@
               </div>
             </div>
             
-          </div>
-
-        {% else %}
-          <div class="container-fluid text-start" style="height: 24rem;"></div>
-        {% endif %}
+        </div>
 
     </div> 
         </div>

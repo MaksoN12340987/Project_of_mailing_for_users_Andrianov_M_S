@@ -44,7 +44,7 @@
     <div class="row p-1 me-2 text-center">
       {% if user.is_authenticated %}
         
-      <div class="col">
+        <div class="col">
           <form method="post" action="{% url 'users:logout' %}" style="display: inline;">
             {% csrf_token %}
             <div class="flex-grow-0 ms-2 mt-1">
@@ -54,7 +54,7 @@
         </div>
         
         {% if user.is_superuser %}
-          <div class="col">
+          <div class="col mt-1">
             <a href="{% url 'users:list' %}" class="btn btn-success rounded-2 me-4">Все юзеры</a>
           </div>
         {% endif %}

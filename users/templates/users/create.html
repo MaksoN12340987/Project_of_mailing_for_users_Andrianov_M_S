@@ -70,10 +70,14 @@
             </div>
           </form>
         </div>
+
+        <div class="col">
+          <a href="{% url 'users:login' %}" class="btn btn-success rounded-2 ms-2">Войти</a>
+        </div>
         
         {% if user.is_superuser %}
           <div class="col">
-            <a href="{% url 'users:list' %}" class="btn btn-success rounded-2 me-4">Все юзеры</a>
+            <a href="{% url 'users:profile' users.pk %}" class="btn btn-success rounded-2 me-4">Все юзеры</a>
           </div>
         {% endif %}
 
