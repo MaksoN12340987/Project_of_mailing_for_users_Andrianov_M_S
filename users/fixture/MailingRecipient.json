@@ -3,6 +3,27 @@
     "model": "users.mailingrecipient",
     "pk": 1,
     "fields": {
+        "password": "pbkdf2_sha256$1000000$TAYrBIUC9RIJOHztdomq11$fhjkuv3Y4yKlEhF9TABox/sEKUlZ4kdumyuXjV5WTR4=",
+        "last_login": "2025-09-09T18:14:06.803Z",
+        "is_superuser": true,
+        "username": "Admin_S",
+        "first_name": "Admin",
+        "last_name": "Admin",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-09-05T10:02:20.405Z",
+        "photo": "users/my_aVnyVlL.JPG",
+        "email": "m.andrianov.fibbee@gmail.com",
+        "phone_number": null,
+        "comment": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.mailingrecipient",
+    "pk": 1,
+    "fields": {
         "password": "pbkdf2_sha256$1000000$a5gqvqRWi0a2XPaGPTRszl$nGn7ZwArDD89LUx2WSpKJx9tbWvzEHfIGGbt8ZiwnLA=",
         "last_login": null,
         "is_superuser": false,
