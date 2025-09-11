@@ -1,12 +1,9 @@
 import logging
-
-from django.db.models import Model
-
 from email.mime.image import MIMEImage
 from functools import lru_cache
-from django.conf import settings
-from django.contrib.staticfiles import finders
+
 from django.core.mail import EmailMultiAlternatives
+from django.db.models import Model
 
 from config.settings import EMAIL_HOST_USER
 

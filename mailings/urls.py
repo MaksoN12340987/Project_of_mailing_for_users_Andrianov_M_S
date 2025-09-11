@@ -1,18 +1,9 @@
 from django.urls import path
 
-from .views import (
-    MainView,
-    MessagesView,
-    MessageCreate,
-    MessageUpdate,
-    MessageDetail,
-    NewsletterCreate,
-    NewsletterUpdate,
-    NewsletterDetail,
-    AttemptSendCreate,
-    AttemptSendList,
-)
 from .apps import MailingsConfig
+from .views import (AttemptSendCreate, AttemptSendList, MainView,
+                    MessageCreate, MessageDetail, MessagesView, MessageUpdate,
+                    NewsletterCreate, NewsletterDetail, NewsletterUpdate)
 
 app_name = MailingsConfig.name
 

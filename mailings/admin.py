@@ -1,6 +1,6 @@
 from django.contrib import admin  # type: ignore
 
-from .models import Message, AttemptSend, Newsletter
+from .models import AttemptSend, Message, Newsletter
 
 
 @admin.register(Message)
@@ -11,6 +11,7 @@ class MessageAdmin(admin.ModelAdmin):
         "attached_file",
     )
     search_fields = ("subject",)
+
 
 @admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):
@@ -24,6 +25,7 @@ class NewsletterAdmin(admin.ModelAdmin):
         "first_sending",
     )
     search_fields = ("message",)
+
 
 @admin.register(AttemptSend)
 class AttemptSendAdmin(admin.ModelAdmin):

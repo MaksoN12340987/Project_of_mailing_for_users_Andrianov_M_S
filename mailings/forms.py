@@ -1,7 +1,6 @@
-from typing import Any
 from django import forms
 
-from .models import Newsletter, Message, AttemptSend
+from .models import AttemptSend, Message, Newsletter
 
 
 class CreateMessage(forms.ModelForm):

@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
+from mailings.models import Message
 from users.models import MailingRecipient
-from mailings.models import Message, Newsletter, AttemptSend
 
 
 class Command(BaseCommand):
@@ -33,7 +33,7 @@ class Command(BaseCommand):
             last_name="last_name_3",
             is_superuser=False,
         )
-        
+
         user_1.set_password("12345678")
         user_2.set_password("12345678")
         user_3.set_password("12345678")
@@ -50,7 +50,7 @@ class Command(BaseCommand):
             subject="Заполните профиль",
             content="""Здравствуйте уважаемый пользователь, заполните свой профиль,
             чтобы мы могли предлагать вам больше индивидуального контента!
-                            
+
             С уважением команда интернет-магазина)""",
         )
         message_2 = Message(

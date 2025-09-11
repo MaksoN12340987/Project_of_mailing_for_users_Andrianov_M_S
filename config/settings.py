@@ -1,10 +1,10 @@
-import logging
 import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from users.apps import UsersConfig
+
 from mailings.apps import MailingsConfig
+from users.apps import UsersConfig
 
 load_dotenv()
 
@@ -133,7 +133,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = "/media/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

@@ -2,23 +2,17 @@ import logging
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
-from django.db.models.query import QuerySet
 from django.forms import BaseModelForm
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    DetailView,
-    ListView,
-    UpdateView,
-)
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
 from users.models import MailingRecipient
 
-from .forms import CreateNewsletter, UpdateNewsletter, CreateMessage, Attempt_send_form
-from .models import Newsletter, Message, AttemptSend
-
+from .forms import (Attempt_send_form, CreateMessage, CreateNewsletter,
+                    UpdateNewsletter)
+from .models import AttemptSend, Message, Newsletter
 from .services import SendingMessagesEmail
 
 logger_views = logging.getLogger(__name__)
@@ -62,7 +56,7 @@ class MessagesView(ListView):
     model = Message
     template_name = "mailings/messages.html"
     context_object_name = "messages"
-    
+
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         logger_views.info(f"{context}".replace(",", "\n"))
@@ -75,7 +69,7 @@ class MessageCreate(LoginRequiredMixin, CreateView):
     template_name = "mailings/create.html"
     context_object_name = "message"
     success_url = reverse_lazy("mailings:main")
-    
+
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         form_valid = super().form_valid(form)
         logger_views.info(form_valid)
@@ -88,7 +82,7 @@ class MessageUpdate(LoginRequiredMixin, UpdateView):
     context_object_name = "message"
     template_name = "mailings/create.html"
     success_url = reverse_lazy("mailings:main")
-    
+
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         form_valid = super().form_valid(form)
         logger_views.info(form_valid)

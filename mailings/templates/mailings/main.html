@@ -101,7 +101,7 @@
             {% endfor %}
           </div>
 
-          <div class="col-1 p-3">
+          <div class="col-1 p-3 ms-2">
             {{ newsletter.status }}
           </div>
         
@@ -109,7 +109,7 @@
 
         <div class="position-relative">
           <div class="position-absolute bottom-0 end-0">
-            <a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" href="{% url 'mailings:update_newsletter' newsletter.pk %}">
+            <a class="icon-link link-info icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" href="{% url 'mailings:update_newsletter' newsletter.pk %}">
               <svg class="bi" aria-hidden="true"><use xlink:href="../../static/images/arrow-through-heart.svg"></use></svg>
               Редактировать
             </a>

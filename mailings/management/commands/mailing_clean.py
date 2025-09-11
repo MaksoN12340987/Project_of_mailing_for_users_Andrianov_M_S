@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from mailings.models import Message, Newsletter, AttemptSend
+from mailings.models import AttemptSend, Message, Newsletter
 
 
 class Command(BaseCommand):
