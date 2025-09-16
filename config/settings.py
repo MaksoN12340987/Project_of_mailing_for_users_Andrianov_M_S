@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     f"{UsersConfig.name}",
     f"{MailingsConfig.name}",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [

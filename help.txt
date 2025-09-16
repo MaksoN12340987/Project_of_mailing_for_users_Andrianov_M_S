@@ -7,6 +7,9 @@ product_5 = Product(name="Молоко свеже", description="", image="stati
 сategory_5 = Category(name="", description="")
 
 
+pip install djangorestframework
+
+
 
 python -Xutf8 manage.py dumpdata mailings.Message --output mailings/fixture/Message.json --indent 4
 python -Xutf8 manage.py dumpdata mailings.Newsletter --output mailings/fixture/Newsletter.json --indent 4
@@ -51,3 +54,22 @@ view_post_permission = Permission.objects.get(codename="view_posts")
 
 "Не все сообщения успешно отправились("
 "Все сообщения успешно отправились"
+
+
+
+
+ViewSet — это компонент Django REST framework, который предоставляет удобный
+способ группировки логики обработки
+запросов для определенного ресурса в одном классе
+ 
+list — отображение списка сущностей, HTTP-метод GET
+ 
+create — создание сущности, HTTP-метод POST
+ 
+retrieve — отображение одной сущности, HTTP-метод GET
+ 
+update — полное обновление сущности, HTTP-метод PUT
+ 
+partial_update — частичное обновление сущности, HTTP-метод PATCH
+ 
+destroy — удаление сущности, HTTP-метод DELETE

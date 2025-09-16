@@ -5,13 +5,17 @@ from django.core.cache import cache
 from django.forms import BaseModelForm
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  UpdateView)
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from users.models import MailingRecipient
 
-from .forms import (Attempt_send_form, CreateMessage, CreateNewsletter,
-                    UpdateNewsletter)
+from .forms import Attempt_send_form, CreateMessage, CreateNewsletter, UpdateNewsletter
 from .models import AttemptSend, Message, Newsletter
 from .services import SendingMessagesEmail
 

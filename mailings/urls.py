@@ -1,9 +1,28 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
 
 from .apps import MailingsConfig
-from .views import (AttemptSendCreate, AttemptSendList, MainView,
-                    MessageCreate, MessageDetail, MessagesView, MessageUpdate,
-                    NewsletterCreate, NewsletterDetail, NewsletterUpdate)
+from .views import (
+    AttemptSendCreate,
+    AttemptSendList,
+    MainView,
+    MessageCreate,
+    MessageDetail,
+    MessagesView,
+    MessageUpdate,
+    NewsletterCreate,
+    NewsletterDetail,
+    NewsletterUpdate,
+)
+from .views_api import (
+    MessageListAPI,
+    NewsletterListAPI,
+    AttemptSendCreateAPI,
+    AttemptSendDestroyAPI,
+    AttemptSendListAPI,
+    AttemptSendRetrieveAPI,
+    AttemptSendUpdateAPI,
+)
 
 app_name = MailingsConfig.name
 
@@ -30,4 +49,14 @@ urlpatterns = [
     # AttemptSend
     path("create_attempt/", AttemptSendCreate.as_view(), name="create_attempt"),
     path("attemptsend_list/", AttemptSendList.as_view(), name="attemptsend_list"),
+    # API message
+    path("api/messages/", MessageListAPI.as_view(), name="api_message"),
+    # API newsletters
+    path("api/newsletters/", NewsletterListAPI.as_view(), name="api_newsletters"),
+    # API attempt_send
+    path("api/api_sends/", AttemptSendListAPI.as_view(), name="api_sends"),
+    path("api/create_api_send/", AttemptSendCreateAPI.as_view(), name="create_api_send"),
+    path("api/del_api_send/<int:pk>/", AttemptSendDestroyAPI.as_view(), name="del_api_send"),
+    path("api/update_api_send/<int:pk>/", AttemptSendUpdateAPI.as_view(), name="update_api_send"),
+    path("api/detail_api_send/<int:pk>/", AttemptSendRetrieveAPI.as_view(), name="detail_api_send"),
 ]
