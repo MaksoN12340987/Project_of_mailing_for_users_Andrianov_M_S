@@ -7,19 +7,19 @@
 {% block content %}
   <div class="container-fluid-base text-start">
 
-    <div class="container-md text-start text-title p-3">
+    <div class="container-md text-start text-title p-4">
 
       <div class="container-fluid text-start" style="height: 3rem;"></div>
 
-      <div class="container-fluid text-gray-right p-4">
+      <div class="container-fluid text-white p-4">
         <h1>Ваш профиль {{ user.username }}</h1>
       </div>
 
-      <div class="row p-4 text-start">
+      <div class="row p-2 mb-3 text-start bg-user-create-form rounded-3">
 
           <div class="col-5">
             <div class="border">
-              <img src="../../../media/{{ user.preview }}" class="card-img-top">
+              <img src="/media/{{ user.photo }}" class="card-img-top">
             </div>
           </div>
 
@@ -63,31 +63,33 @@
 
           </div>
       
-        </div>
+      </div>
 
-      {% if perms.users.change_baseuser %}
 
-        <div class="container-fluid text-gray-right p-3">
-          <h1>Обновления профиля:</h1>
+        <div class="row text-start">
 
-          <form method="post" class="mb-5" enctype="multipart/form-data">
-              
-            {% csrf_token %}
-            {{ form.as_p }}
-              
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button type="submit" class="btn btn-warning btn-lg mt-3 mb-3 me-5">Сохранить</button>
+            <div class="col-5">
+              <div class="container text-gray-right bg-user-create-form rounded-4 me-4">
+                <h1>Обновления профиля:</h1>
+
+                <form method="post" class="mb-5" enctype="multipart/form-data">
+                    
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                    
+                  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-warning btn-lg mt-3 mb-3 me-5">Сохранить</button>
+                  </div>
+                    
+                </form>
+              </div>
             </div>
-              
-          </form>
+            
         </div>
 
-      {% else %}
-        <div class="container-fluid text-start" style="height: 24rem;"></div>
-      {% endif %}
+    </div> 
+        </div>
 
-    </div>
-  </div> 
 {% endblock %}
 
 
@@ -107,7 +109,7 @@
         
         {% if user.is_superuser %}
           <div class="col">
-            <a href="{% url 'users:list' %}" class="btn btn-success rounded-2 me-4">Все юзеры</a>
+            <a href="{% url 'users:list' %}" class="btn btn-success rounded-2 me-4 mt-1">Все юзеры</a>
           </div>
         {% endif %}
 

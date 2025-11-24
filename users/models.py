@@ -18,14 +18,16 @@ class MailingRecipient(AbstractUser):
     # "groups" - Группы, к которым принадлежит этот пользователь.
     #           Пользователь получит все разрешения, предоставленные каждой из его групп
     # "user_permissions" - Конкретные разрешения для этого пользователя
-    preview = models.ImageField(
+    photo = models.ImageField(
         upload_to="users/",
         verbose_name="Фотография",
         null=True,
     )
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, verbose_name="Почта клиента")
     phone_number = models.CharField(max_length=15, blank=True, null=True)
-    location = models.CharField(max_length=50, verbose_name="Страна проживания", default="Russia")
+    comment = models.CharField(
+        max_length=15, blank=True, null=True, verbose_name="Коммантарий"
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = [

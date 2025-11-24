@@ -1,66 +1,105 @@
 from django import forms
 
-from .models import Newsletter
+from .models import AttemptSend, Message, Newsletter
+
+
+class CreateMessage(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = [
+            "subject",
+            "content",
+            "attached_file",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["subject"].widget.attrs.update(
+            {
+                "class": "form-control-M",
+                "placeholder": "Тема сообщения",
+            }
+        )
+        self.fields["content"].widget.attrs.update(
+            {
+                "class": "form-control-M",
+                "placeholder": "Содержание сообщения ",
+            }
+        )
+        self.fields["attached_file"].widget.attrs.update(
+            {
+                "class": "form-control-M",
+                "placeholder": "Дополнительны файлы ",
+            }
+        )
 
 
 class CreateNewsletter(forms.ModelForm):
     class Meta:
         model = Newsletter
         fields = [
-            "email",
-            "name_surname",
-            "content",
-            "categories",
-            "attached_file",
+            "message",
+            "recipients",
+            "сompletion_time",
         ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["email"].widget.attrs.update(
+        self.fields["message"].widget.attrs.update(
             {
-                "class": "contact-form",
-                "placeholder": "Введите",
+                "class": "form-control-M",
+                "placeholder": "Введите ",
             }
         )
-        self.fields["name_surname"].widget.attrs.update(
+        self.fields["recipients"].widget.attrs.update({"class": "form-select-M"})
+        self.fields["сompletion_time"].widget.attrs.update(
             {
-                "class": "contact-form",
-                "placeholder": "Введите",
+                "class": "form-select-M",
             }
         )
-        self.fields["content"].widget.attrs.update({"class": "contact-form"})
-        self.fields["categories"].widget.attrs.update({"class": "form-select"})
-        self.fields["attached_file"].widget.attrs.update({"class": "img"})
-
 
 
 class UpdateNewsletter(forms.ModelForm):
     class Meta:
         model = Newsletter
         fields = [
-            "email",
-            "name_surname",
-            "content",
-            "categories",
-            "attached_file",
+            "message",
+            "recipients",
+            "сompletion_time",
         ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["email"].widget.attrs.update(
+        self.fields["message"].widget.attrs.update(
             {
-                "class": "contact-form",
-                "placeholder": "Введите",
+                "class": "form-control-M",
+                "placeholder": "Введите ",
             }
         )
-        self.fields["name_surname"].widget.attrs.update(
+        self.fields["сompletion_time"].widget.attrs.update(
             {
-                "class": "contact-form",
-                "placeholder": "Введите",
+                "class": "form-control-M",
             }
         )
-        self.fields["content"].widget.attrs.update({"class": "contact-form"})
-        self.fields["categories"].widget.attrs.update({"class": "form-select"})
-        self.fields["attached_file"].widget.attrs.update({"class": "img"})
+        self.fields["recipients"].widget.attrs.update({"class": "form-select-M"})
+
+
+class Attempt_send_form(forms.ModelForm):
+    class Meta:
+        model = AttemptSend
+        fields = [
+            "news_letter",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["news_letter"].widget.attrs.update(
+            {
+                "class": "form-select-M",
+                "placeholder": "Содержание сообщения",
+            }
+        )

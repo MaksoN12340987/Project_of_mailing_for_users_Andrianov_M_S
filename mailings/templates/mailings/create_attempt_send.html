@@ -1,0 +1,38 @@
+{% extends 'mailings/base.html' %}
+
+{% block title %}
+  Рассылки
+{% endblock %}
+
+{% block page_title %}
+  
+{% endblock %}
+
+
+{% block content %}
+  <h3 class="p-3">Создать рассылку:</h3>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="card rounded-3 bg-card text-start ms-2 text-white">
+        <form method="post" class="p-2" enctype="multipart/form-data">
+                                
+          {% csrf_token %}
+                                
+          {{ form.as_p }}
+                                
+          <button type="submit" class="btn btn-primary mb-1">Запуск!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container-fluid" style="height: 4rem;"></div>
+{% endblock %}
+
+
+{% block bottom %}
+  <div class="container">
+    
+  </div>
+{% endblock %}

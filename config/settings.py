@@ -1,31 +1,19 @@
-import logging
 import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from users.apps import UsersConfig
-
 
 from mailings.apps import MailingsConfig
+from users.apps import UsersConfig
 
 load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-tf_4-__)ca1laq(^9c84b8hb*bw%l79-(p^!52yjx1l1k5q62q"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.getenv("DEBUG") == "True" else False
-
-
 ALLOWED_HOSTS = ["localhost", "192.168.1.2"]
-
 
 # Users config
 LOGIN_URL = "users:login"
@@ -34,8 +22,6 @@ AUTH_USER_MODEL = "users.MailingRecipient"
 LOGIN_REDIRECT_URL = "mailings:main"
 LOGOUT_REDIRECT_URL = "users:login"
 
-
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -46,6 +32,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     f"{UsersConfig.name}",
     f"{MailingsConfig.name}",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -141,13 +128,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
 
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

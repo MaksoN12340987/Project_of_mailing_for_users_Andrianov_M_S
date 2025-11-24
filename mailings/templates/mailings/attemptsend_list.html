@@ -1,0 +1,137 @@
+{% extends 'mailings/base.html' %}
+
+{% block title %}
+  Рассылки
+{% endblock %}
+
+{% block page_title %}
+  <div class="row p-1">
+    <div class="col-6 ms-5">
+
+      <div class="container-fluid" style="height: 4rem;"></div>
+
+      <h1>УПРАВЛЯЙТЕ</h1>
+      <h1>РАССЫЛКАМИ КЛИЕНТАМ</h1>
+    </div>
+    
+    <div class="row">
+      <div class="col-9 text-end">
+        <h1 class="me-4">СО СКОРОСТЬЮ МАРСИАНСКОГО</h1>
+        <h1 class="me-4">ЭКСПРЕССА</h1>
+      </div>
+    </div>
+
+    <div class="container-fluid" style="height: 14rem;"></div>
+  </div>
+{% endblock %}
+
+
+{% block content %}
+  <h3 class="p-3">Управление рассылками:</h3>
+  <div class="row ms-3 me-2">
+          
+    <div class="col-3">
+      <p>Статус</p>
+    </div>
+
+    <div class="col-3">
+      <p>Дата и время попытки</p>
+    </div>
+
+    <div class="col-3">
+      <p>Ответ почтового сервера</p>
+    </div>
+          
+    <div class="col-3">
+      <p>Рассылка</p>
+    </div>
+        
+  </div>
+    
+  <div class="container">
+    {% for attemptsend in attemptsends %}
+
+      <div class="container mb-3">
+        
+        {% if attemptsend.status == 'Not_start' %}
+          
+          <div class="alert alert-primary rounded-3" role="alert">
+            <div class="row">
+              <div class="col-3">
+                <p>Не запущено</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.time_attempt }}</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.mail_server_response }}</p>
+              </div>
+              
+              <div class="col-3">
+                <p>{{ attemptsend.news_letter }}</p>
+              </div>
+            </div>
+          </div>
+          
+        {% elif attemptsend.status == 'Not_successful' %}
+          
+          <div class="alert alert-danger rounded-3" role="alert">
+            <div class="row">
+              <div class="col-3">
+                <p>Завершено с ошибкой</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.time_attempt }}</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.mail_server_response }}</p>
+              </div>
+              
+              <div class="col-3">
+                <p>{{ attemptsend.news_letter }}</p>
+              </div>
+            </div>
+          </div>
+
+        {% else %}
+          
+          <div class="alert alert-info rounded-3" role="alert">
+            <div class="row">
+              <div class="col-3">
+                <p>Успешно завершено</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.time_attempt }}</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ attemptsend.mail_server_response }}</p>
+              </div>
+              
+              <div class="col-3">
+                <p>{{ attemptsend.news_letter }}</p>
+              </div>
+            </div>
+          </div>
+
+        {% endif %}
+      </div>
+      
+    {% endfor %}
+  </div>
+
+  <div class="container-fluid" style="height: 3rem;"></div>
+
+{% endblock %}
+
+
+{% block bottom %}
+  <div class="container">
+    
+  </div>
+{% endblock %}

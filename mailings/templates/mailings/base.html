@@ -6,18 +6,117 @@
     <title>{% block title %}Авторизация{% endblock %}</title>
     <link href="\static\css\bootstrap.css" rel="stylesheet">
     <script defer src="\static\js\bootstrap.bundle.js"></script>
+    <script defer src="\static\js\time.js"></script>
   <body>
 
-    <div class="container-fluid-mailing vh-100 text-start">
+    <div class="container-fluid-mailing text-start">
       <div class="container-md-page_title text-start">
 
-        {% block page_title %}{% endblock %}
-        <div class="container-fluid text-start" style="height: 6rem;"></div>
+        <div class="container-fluid" style="height: 1rem;"></div>
+
+        
+        <div class="container">
+          <div class="hstack gap-3">
+            <div class="p-2 d-flex">
+              <p>TIME: </p>
+              <p class="ms-2" id="clock"></p>
+            </div>
+            
+            {% if user.is_authenticated %}
+              <div class="p-2 ms-auto bg-auth rounded-5">
+                <img src="/media/{{ user.photo }}" alt="/static/images/icon.png" width="30" height="30" class="d-inline-block mt-1 rounded-5">
+              </div>
+
+              <div class="d-flex bg-auth rounded-5">
+                <a class="icon-link icon-link-hover link-success link-underline-success link-underline-opacity-25 p-1 mt-1 mb-2 ms-3" href="{% url 'users:list' %}">
+                  {{ user.username }}
+                  <svg xmlns="/static/images/balloon-heart.svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                  </svg>
+                </a>
+
+                <form method="post" action="{% url 'users:logout' %}" style="display: inline;">
+                  {% csrf_token %}
+                  <div class="flex-grow-0 ms-2 mt-1">
+                    <button type="submit" class="btn rounded-2 mb-2 me-2">Выйти</button>
+                  </div>
+                </form>
+              </div>
+            {% else %}
+              <div class="p-2 ms-auto bg-auth rounded-5">
+                <img src="/static/images/icon.png" width="30" height="30" class="d-inline-block mt-1 mb-1 rounded-5">
+              </div>
+
+              <div class="d-flex bg-auth rounded-5">
+                <a class="icon-link icon-link-hover link-success link-underline-success link-underline-opacity-25 p-2 mt-1 mb-2 ms-3 me-3" href="{% url 'users:login' %}">
+                  Вход
+                  <svg xmlns="/static/images/balloon-heart.svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                  </svg>
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row p-1">
+          <div class="col-6 ms-5">
+
+            <h1>УПРАВЛЯЙТЕ</h1>
+            <h1 class="ms-5">РАССЫЛКАМИ КЛИЕНТАМ</h1>
+          </div>
+          
+          <div class="row">
+            <div class="col-9 text-end">
+              <h1 class="me-4">СО СКОРОСТЬЮ МАРСИАНСКОГО</h1>
+              <h1 class="me-5">ЭКСПРЕССА</h1>
+            </div>
+          </div>
+
+        </div>
+        <div class="container-fluid text-start" style="height: 20rem;"></div>
 
       </div>
 
-      <div class="container-md-content text-white">
+      <div class="container-md-content text-white p-3">
         <div class="container-md-M text-start">
+
+          <nav class="navbar navbar-expand-lg bg-body-tertiary rounded-3">
+            <div class="container-fluid">
+              
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active me-3 text-white" aria-current="page" href="{% url 'mailings:main' %}">Главная</a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link me-3 text-white" href="{% url 'mailings:create_attempt' %}">Запуск рассылки</a>
+                  </li>
+                  
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Создать
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'mailings:create_message' %}">Сообщение рассылки</a></li>
+                      <li><a class="dropdown-item" href="{% url 'mailings:create_newsletter' %}">Рассылку</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="{% url 'users:create' %}">Получателя рассылки</a></li>
+                    </ul>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link me-3 text-white" href="{% url 'mailings:list_message' %}">Сообщеия</a>
+                  </li>
+                </ul>
+                
+                <a href="{% url 'mailings:attemptsend_list' %}" class="btn btn-success">Просмотреть запущеные рассылки</a>
+
+              </div>
+            
+            </div>
+          </nav>
 
           {% block content %}{% endblock %}
 
@@ -31,6 +130,5 @@
         </div>
       </div>
     </div>
-    
   </body>
 </html>

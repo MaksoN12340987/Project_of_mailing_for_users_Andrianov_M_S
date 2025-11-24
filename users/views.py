@@ -4,8 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.mail import send_mail
-from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponse, HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView
 
@@ -73,7 +72,9 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
 
     def post(self, request, *args, **kwargs) -> HttpResponse:
         if not request.user.has_perm("change_baseuser"):
-            return HttpResponseForbidden("У вас нет прав для обновления данных пользователя.")
+            return HttpResponseForbidden(
+                "У вас нет прав для обновления данных пользователя."
+            )
 
         return super().post(request, *args, **kwargs)
 

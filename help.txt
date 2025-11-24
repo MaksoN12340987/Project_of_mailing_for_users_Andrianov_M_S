@@ -7,22 +7,37 @@ product_5 = Product(name="Молоко свеже", description="", image="stati
 сategory_5 = Category(name="", description="")
 
 
+pip install djangorestframework
 
-python -Xutf8 manage.py dumpdata users.BaseUser --output users/fixture/users.json --indent 4
 
 
-python manage.py loaddata blog/fixture/posts.json --format json
-python manage.py loaddata users/fixture/users.json --format json
+python -Xutf8 manage.py dumpdata mailings.Message --output mailings/fixture/Message.json --indent 4
+python -Xutf8 manage.py dumpdata mailings.Newsletter --output mailings/fixture/Newsletter.json --indent 4
+python -Xutf8 manage.py dumpdata mailings.AttemptSend --output mailings/fixture/AttemptSend.json --indent 4
 
+python -Xutf8 manage.py dumpdata users.MailingRecipient --output users/fixture/MailingRecipient.json --indent 4
+
+
+python manage.py loaddata mailings/fixture/Message.json --format json
+
+python manage.py loaddata mailings/fixture/Newsletter.json --format json
+
+python manage.py loaddata mailings/fixture/AttemptSend.json --format json
+
+python manage.py loaddata users/fixture/MailingRecipient.json --format json
+
+
+
+2025-09-01 00:00:00
 
 
 python manage.py makemigrations
 
 python manage.py migrate
 python manage.py migrate auth zero
-python manage.py migrate users zero
-python manage.py migrate blog zero
-python manage.py migrate catalog zero
+python manage.py migrate mailings zero
+
+python manage.py mailing_clean
 
 
 
@@ -34,3 +49,27 @@ from users.models import BaseUser
 
 from django.contrib.auth.models import Permission
 view_post_permission = Permission.objects.get(codename="view_posts")
+
+
+
+"Не все сообщения успешно отправились("
+"Все сообщения успешно отправились"
+
+
+
+
+ViewSet — это компонент Django REST framework, который предоставляет удобный
+способ группировки логики обработки
+запросов для определенного ресурса в одном классе
+ 
+list — отображение списка сущностей, HTTP-метод GET
+ 
+create — создание сущности, HTTP-метод POST
+ 
+retrieve — отображение одной сущности, HTTP-метод GET
+ 
+update — полное обновление сущности, HTTP-метод PUT
+ 
+partial_update — частичное обновление сущности, HTTP-метод PATCH
+ 
+destroy — удаление сущности, HTTP-метод DELETE

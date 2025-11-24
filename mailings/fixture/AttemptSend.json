@@ -1,0 +1,32 @@
+[
+{
+    "model": "mailings.attemptsend",
+    "pk": 1,
+    "fields": {
+        "status": "Not_start",
+        "time_attempt": "2025-09-03T14:24:54.394Z",
+        "mail_server_response": "Успешно",
+        "news_letter": 2
+    }
+},
+{
+    "model": "mailings.attemptsend",
+    "pk": 2,
+    "fields": {
+        "status": "Not_successful",
+        "time_attempt": "2025-09-03T14:25:02.282Z",
+        "mail_server_response": "Успешно",
+        "news_letter": 1
+    }
+},
+{
+    "model": "mailings.attemptsend",
+    "pk": 3,
+    "fields": {
+        "status": "Successful",
+        "time_attempt": "2025-09-03T14:25:11.453Z",
+        "mail_server_response": "Успешно",
+        "news_letter": 1
+    }
+}
+]
